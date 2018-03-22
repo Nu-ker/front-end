@@ -20,7 +20,16 @@
   },
   "dependencies": {
     "expo": "^25.0.0",
+    "link": "^0.1.5",
+    "material-ui": "^0.20.0",
     "react": "16.2.0",
-    "react-native": "0.52.0"
+    "react-native": "^0.52.0",
+    "react-native-animatable": "^1.2.4",
+    "react-native-material-ui": "^1.20.0",
+    "react-native-simple-radio-button": "^2.7.1",
+    "react-native-vector-icons": "^4.5.0",
+    "react-navigation": "^1.5.8",
+    "react-redux": "^5.0.7",
+    "redux": "^3.7.2"
   }
 }
