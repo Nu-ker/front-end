@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, ImageBackground, TouchableHighlight, View, Image, TextInput } from 'react-native';
+import { StyleSheet, Text, ScrollView, ImageBackground, TouchableHighlight, View, Image, TextInput } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 
 export default class Home extends React.Component {
@@ -7,7 +7,7 @@ export default class Home extends React.Component {
     return (
       <ImageBackground style={styles.back} source={require('../assets/tes.jpg')}>
         <Text style={styles.judul}>Please Fill The Form</Text>
-        <View style={styles.wrap}>
+        <ScrollView style={styles.wrap}>
           <TextInput placeholder="Your Weight (kg)" keyboardType="number-pad" style={styles.input}></TextInput>
           <TextInput placeholder="Your Height (cm)" keyboardType="number-pad" style={styles.input}></TextInput>
           <TextInput placeholder="Your Gender" keyboardType="default" style={styles.input}></TextInput>
@@ -16,7 +16,7 @@ export default class Home extends React.Component {
           <TouchableHighlight onPress={() => this.props.navigation.navigate('DashBoard')} style={styles.next}>
             <Text style={styles.text}>NEXT</Text>
           </TouchableHighlight>
-        </View>
+        </ScrollView>
       </ImageBackground>
     )
   }
@@ -28,17 +28,17 @@ const styles = StyleSheet.create({
     height: '100%'
   },
   input: {
+    alignSelf: 'center',
     borderWidth: 1,
     width: '90%',
     height: 40,
     margin: 8,
     padding: 10,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   wrap: {
     width: '100%',
     height: '100%',
-    alignItems: 'center'
   },
   judul: {
     color: 'white',
@@ -50,7 +50,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#00c6a2',
     width: '90%',
     height: 35,
-    marginTop: 10
+    marginTop: 10,
+    alignSelf: 'center'
   },
   text: {
     color: 'white',
