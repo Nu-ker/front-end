@@ -3,31 +3,19 @@ import { StyleSheet, Text, ImageBackground, TouchableHighlight, View, Image, Tex
 import * as Animatable from 'react-native-animatable';
 
 export default class Home extends React.Component {
-  gender () {
-    console.warn('wohooo');
-  }
-
   render () {
-    var male = [
-      {label: 'Male', value: 0 }
-    ]
-
-    var female = [
-      {label: 'Female', value: 1 }
-    ]
-
     return (
-      <ImageBackground style={styles.back} source={{uri: `http://www.designbolts.com/wp-content/uploads/2016/07/Mountains-iPhone-6-Wallpaper.jpg`}}>
+      <ImageBackground style={styles.back} source={require('../assets/tes.jpg')}>
         <Text style={styles.judul}>Please Fill The Form</Text>
-        <View>
-          <Text style={styles.male}>Male</Text>
-          <Text style={styles.female}>Female</Text>
-        </View>
         <View style={styles.wrap}>
-          <TextInput placeholder="Your Age" style={styles.input}></TextInput>
-          <TextInput placeholder="Your Gender" style={styles.input}></TextInput>
-          <TextInput placeholder="Your Weight" style={styles.input}></TextInput>
-          <TextInput placeholder="Your Height" style={styles.input}></TextInput>
+          <TextInput placeholder="Your Weight (kg)" keyboardType="number-pad" style={styles.input}></TextInput>
+          <TextInput placeholder="Your Height (cm)" keyboardType="number-pad" style={styles.input}></TextInput>
+          <TextInput placeholder="Your Gender" keyboardType="default" style={styles.input}></TextInput>
+          <TextInput placeholder="Your Age" keyboardType="number-pad" style={styles.input}></TextInput>
+          <TextInput placeholder="Weight Target" keyboardType="number-pad" style={styles.input}></TextInput>
+          <TouchableHighlight onPress={() => this.props.navigation.navigate('DashBoard')} style={styles.next}>
+            <Text style={styles.text}>NEXT</Text>
+          </TouchableHighlight>
         </View>
       </ImageBackground>
     )
@@ -43,14 +31,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     width: '90%',
     height: 40,
-    margin: 6,
-    padding: 7,
+    margin: 8,
+    padding: 10,
     backgroundColor: 'white'
   },
   wrap: {
     width: '100%',
     height: '100%',
-    justifyContent: 'center',
     alignItems: 'center'
   },
   judul: {
@@ -59,9 +46,17 @@ const styles = StyleSheet.create({
     fontSize: 30,
     marginTop: 30
   },
-  gender: {
-    flexWrap: 'nowrap',
-    justifyContent: 'center',
-    alignItems: 'center'
+  next: {
+    backgroundColor: '#00c6a2',
+    width: '90%',
+    height: 35,
+    marginTop: 10
+  },
+  text: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 17,
+    padding: 5,
+    textAlign: 'center'
   }
 })

@@ -1,17 +1,22 @@
 import React from 'react';
 import { StyleSheet, Text, ImageBackground, TouchableHighlight, View, Image, TextInput } from 'react-native';
 import * as Animatable from 'react-native-animatable';
+import { Ionicons } from '@expo/vector-icons';
 
 export default class Home extends React.Component {
-  login () {
-
-  }
-
   render () {
     return (
-      <ImageBackground style={styles.back} source={{uri: `http://www.designbolts.com/wp-content/uploads/2016/07/Mountains-iPhone-6-Wallpaper.jpg`}}>
+      <ImageBackground style={styles.back} source={require('../assets/tes.jpg')}>
+
+        <View>
+          <Image style={styles.logo} source={require('../assets/logo.png')}></Image>
+          <Text style={styles.figure}>
+            An App For Your Health
+          </Text>
+        </View>
+
         <View style={styles.container}>
-          <TouchableHighlight onPress={this.login} style={styles.tombol}>
+          <TouchableHighlight onPress={() => this.props.navigation.navigate('Form')} style={styles.tombol}>
             <Animatable.Text animation="pulse" easing="ease-out" iterationCount="infinite" style={{ textAlign: 'center' }}>
               <Text style={styles.text}>
                 Login With Google
@@ -20,7 +25,12 @@ export default class Home extends React.Component {
             </Animatable.Text>
           </TouchableHighlight>
         </View>
-        <Text style={styles.figure}>An App For Your Health</Text>
+
+        <Text style={styles.textIcon}>
+          <Ionicons style={styles.icon} name="logo-facebook" size={25} color="white"/>
+          <Ionicons style={styles.icon} name="logo-twitter" size={25} color="white"/>
+          <Ionicons style={styles.icon} name="logo-google" size={25} color="white"/>
+        </Text>
       </ImageBackground>
     )
   }
@@ -28,6 +38,7 @@ export default class Home extends React.Component {
 
 const styles = StyleSheet.create({
   back: {
+    justifyContent: 'center',
     width: '100%',
     height: '100%'
   },
@@ -37,14 +48,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   tombol: {
-    marginTop: 100,
     alignItems: 'center',
     justifyContent: 'center',
     width: '50%',
     paddingTop: 5,
     paddingBottom: 11,
     backgroundColor: '#e54b30',
-    borderRadius: 5
+    borderRadius: 5,
+    marginBottom: '10%'
   },
   text: {
     letterSpacing: 0.5,
@@ -52,10 +63,21 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   figure: {
+    marginTop: 5,
     fontWeight: 'bold',
     letterSpacing: 2,
     color: 'white',
+    textAlign: 'center'
+  },
+  logo: {
+    marginTop: 30,
+    padding: 0,
+    alignSelf: 'center'
+  },
+  textIcon: {
     textAlign: 'center',
-    marginBottom: 40
+    padding: 40,
+    marginLeft: 20,
+    letterSpacing: 12
   }
 })
