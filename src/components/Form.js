@@ -8,11 +8,11 @@ export default class Home extends React.Component {
       <ImageBackground style={styles.back} source={require('../assets/tes.jpg')}>
         <Text style={styles.judul}>Please Fill The Form</Text>
         <ScrollView style={styles.wrap}>
-          <TextInput placeholder="Your Weight (kg)" keyboardType="number-pad" style={styles.input}></TextInput>
-          <TextInput placeholder="Your Height (cm)" keyboardType="number-pad" style={styles.input}></TextInput>
+          <TextInput placeholder="Your Weight (kg)" keyboardType="default" style={styles.input}></TextInput>
+          <TextInput placeholder="Your Height (cm)" keyboardType="default" style={styles.input}></TextInput>
           <TextInput placeholder="Your Gender" keyboardType="default" style={styles.input}></TextInput>
-          <TextInput placeholder="Your Age" keyboardType="number-pad" style={styles.input}></TextInput>
-          <TextInput placeholder="Weight Target" keyboardType="number-pad" style={styles.input}></TextInput>
+          <TextInput placeholder="Your Age" keyboardType="default" style={styles.input}></TextInput>
+          <TextInput placeholder="Weight Target" keyboardType="default" style={styles.input}></TextInput>
           <TouchableHighlight onPress={() => this.props.navigation.navigate('DashBoard')} style={styles.next}>
             <Text style={styles.text}>NEXT</Text>
           </TouchableHighlight>
