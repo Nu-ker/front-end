@@ -19,17 +19,17 @@ export default class Home extends React.Component {
           <TouchableHighlight onPress={() => this.props.navigation.navigate('Form')} style={styles.tombol}>
             <Animatable.Text animation="pulse" easing="ease-out" iterationCount="infinite" style={{ textAlign: 'center' }}>
               <Text style={styles.text}>
-                Login With Google
-                <Image style={{marginLeft: 8,width: 20, height: 20, paddingTop: 30}} source={{uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Google_Plus_logo_2015.svg/600px-Google_Plus_logo_2015.svg.png'}}></Image>
+                Login With Google &nbsp;
               </Text>
+              <Ionicons style={styles.icon} name="logo-google" size={15} color="white"/>
             </Animatable.Text>
           </TouchableHighlight>
         </View>
 
         <Text style={styles.textIcon}>
-          <Ionicons style={styles.icon} name="logo-facebook" size={25} color="white"/>
-          <Ionicons style={styles.icon} name="logo-twitter" size={25} color="white"/>
-          <Ionicons style={styles.icon} name="logo-google" size={25} color="white"/>
+          <Ionicons name="logo-facebook" size={25} color="white"/>
+          <Ionicons name="logo-twitter" size={25} color="white"/>
+          <Ionicons name="logo-google" size={25} color="white"/>
         </Text>
       </ImageBackground>
     )
@@ -50,12 +50,11 @@ const styles = StyleSheet.create({
   tombol: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: '50%',
-    paddingTop: 5,
-    paddingBottom: 11,
+    width: '55%',
+    padding: 8,
     backgroundColor: '#e54b30',
     borderRadius: 5,
-    marginBottom: '10%'
+    marginBottom: '5%'
   },
   text: {
     letterSpacing: 0.5,
@@ -79,5 +78,8 @@ const styles = StyleSheet.create({
     padding: 40,
     marginLeft: 20,
     letterSpacing: 12
+  },
+  icon: {
+    padding: 5
   }
 })
