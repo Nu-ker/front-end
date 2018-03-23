@@ -41,9 +41,9 @@ export default class App extends React.Component {
       <View style={styles.container}>
         {imageView}
         {labelView}
-        <Ionicons name="ios-image-outline" size={120} color="white"></Ionicons>
+        <Ionicons name="ios-image-outline" size={120} color="black"></Ionicons>
         <TouchableOpacity
-          style={{ padding: 10, backgroundColor: 'aquamarine', borderRadius: 5 }}
+          style={{ padding: 10, backgroundColor: 'lightblue', borderRadius: 5 }}
           onPress={this._pickImage}>
           <Text>Take A Picture</Text>
         </TouchableOpacity>
@@ -101,7 +101,7 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#6dbbff',
+    backgroundColor: 'azure',
     alignItems: 'center',
     justifyContent: 'center',
   },

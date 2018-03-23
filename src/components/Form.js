@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     marginTop: 30
   },
   next: {
-    backgroundColor: '#00c6a2',
+    backgroundColor: 'lightblue',
     width: '90%',
     height: 35,
     marginTop: 10,

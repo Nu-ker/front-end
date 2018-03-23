@@ -8,6 +8,7 @@ import Onea from '../pages/onea';
 import Two from '../pages/two';
 import Three from '../pages/three';
 import detail from '../pages/detail';
+import EditProfile from '../pages/EditProfile';
 
 export default class DashBoard extends Component {
   render() {
@@ -26,6 +27,7 @@ export default class DashBoard extends Component {
       three: {
         screen: StackNavigator({
           three: { screen: Three },
+          EditProfile: { screen: EditProfile}
         })
       }
     }, {
