@@ -1,5 +1,7 @@
 import Expo from 'expo';
 import React from 'react';
+import { Ionicons } from '@expo/vector-icons';
+
 import {
   StyleSheet,
   Text,
@@ -29,7 +31,7 @@ export default class App extends React.Component {
     let labelView = null;
     if (this.state.label) {
       labelView = (
-        <Text style={{ margin: 5 }}>        
+        <Text style={{ padding: 5 }}>
           {this.state.label}
         </Text>
       );
@@ -39,13 +41,14 @@ export default class App extends React.Component {
       <View style={styles.container}>
         {imageView}
         {labelView}
+        <Ionicons name="ios-image-outline" size={120} color="white"></Ionicons>
         <TouchableOpacity
-          style={{ margin: 5, padding: 5, backgroundColor: '#ddd' }}
+          style={{ padding: 10, backgroundColor: 'aquamarine', borderRadius: 5 }}
           onPress={this._pickImage}>
-          <Text>take a picture!</Text>
+          <Text>Take A Picture</Text>
         </TouchableOpacity>
       </View>
-    );
+    )
   }
 
   _pickImage = async () => {
@@ -90,7 +93,7 @@ export default class App extends React.Component {
     const parsed = await response.json();
     console.log('tessss',parsed)
     this.setState({
-      label: parsed.responses[0].labelAnnotations[1].description,      
+      label: parsed.responses[0].labelAnnotations[1].description,
     });
   }
 }
@@ -98,7 +101,7 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#6dbbff',
     alignItems: 'center',
     justifyContent: 'center',
   },

@@ -7,6 +7,7 @@ import One from '../pages/one';
 import Onea from '../pages/onea';
 import Two from '../pages/two';
 import Three from '../pages/three';
+import detail from '../pages/detail';
 
 export default class Router extends Component {
   render() {
@@ -14,17 +15,17 @@ export default class Router extends Component {
       one: {
         screen: StackNavigator({
           one: { screen: One },
-          onea: { screen: Onea }
+          detail: { screen: detail }
         })
       },
       two: {
         screen: StackNavigator({
-          two: { screen: Two },          
+          two: { screen: Two },
         })
       },
       three: {
         screen: StackNavigator({
-          three: { screen: Three },          
+          three: { screen: Three },
         })
       }
     }, {

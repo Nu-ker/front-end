@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, ScrollView, TouchableHighlight, Text, StyleSheet, Button } from 'react-native';
+import { View, Image, ScrollView, TouchableOpacity, ImageBackground, Text, StyleSheet, Button } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { StackNavigator } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
@@ -7,17 +7,10 @@ import { Ionicons } from '@expo/vector-icons';
 export default class One extends Component {
   constructor () {
     super()
-    this.state = {
-      image: [
-        {url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg/1200px-Good_Food_Display_-_NCI_Visuals_Online.jpg'},
-        {url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg/1200px-Good_Food_Display_-_NCI_Visuals_Online.jpg'},
-        {url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg/1200px-Good_Food_Display_-_NCI_Visuals_Online.jpg'},
-        {url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg/1200px-Good_Food_Display_-_NCI_Visuals_Online.jpg'}
-      ]
-    }
   }
+
   static navigationOptions = {
-    title: 'One',
+    title: 'Back',
     tabBarLabel: 'Dashboard',
     header: null,
     tabBarIcon: ({ tintColor }) =>
@@ -30,11 +23,11 @@ export default class One extends Component {
         <View style={styles.one}>
 
           <Text style={styles.date}>
-            <Ionicons name="ios-arrow-dropleft-circle-outline" style={{fontWeight: 'bold'}} size={25} color="white"/>
-            &nbsp;
+            <Ionicons name="ios-arrow-back-outline" style={{fontWeight: 'bold'}} size={23} color="white"/>
+            &nbsp;&nbsp;
             Monday, March 18
-            &nbsp;
-            <Ionicons name="ios-arrow-dropright-circle-outline" style={{fontWeight: 'bold'}} size={25} color="white"/>
+            &nbsp;&nbsp;
+            <Ionicons name="ios-arrow-forward-outline" style={{fontWeight: 'bold'}} size={23} color="white"/>
           </Text>
 
           <View style={styles.wrapper}>
@@ -46,10 +39,16 @@ export default class One extends Component {
 
         </View>
 
-        <View style={styles.two}>
-          <ScrollView>
+          <ScrollView style={{backgroundColor: 'white', margin: 7, width: '97%'}}>
+            <Text style={styles.today}>Today's Consumption</Text>
+            <View style={styles.two}>
+              <TouchableOpacity style={{width: '30%'}} onPress={() => navigate('detail')}>
+                <ImageBackground style={styles.pic} source={{uri : 'https://www.goodindonesianfood.com/story/file/2017/02/Makassar-classic-Warung-Pangkep-Sop-Saudara-1-1170x780.jpg'}}>
+                  <Text style={styles.textImage}>50 Kcal</Text>
+                </ImageBackground>
+              </TouchableOpacity>
+            </View>
           </ScrollView>
-        </View>
 
       </View>
     )
@@ -61,6 +60,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  linearGradient: {
+    flex: 1,
+    paddingLeft: 15,
+    paddingRight: 15,
+    borderRadius: 5
   },
   one: {
     width: '100%',
@@ -74,7 +79,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexWrap: 'wrap',
     flexDirection: 'row',
-    width: '100%'
+    width: '100%',
   },
   date: {
     color: 'white',
@@ -115,5 +120,24 @@ const styles = StyleSheet.create({
     height: '95%',
     alignSelf: 'center',
     borderWidth: 6
+  },
+  pic: {
+    width: '100%',
+    height: 100,
+    margin: 5
+  },
+  textImage: {
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    color: 'white',
+    textAlign: 'center',
+    padding: 5,
+    fontWeight: 'bold'
+  },
+  today: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    letterSpacing: 1,
+    margin: 5,
+    fontSize: 20
   }
 })
