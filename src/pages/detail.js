@@ -16,7 +16,6 @@ export default class Detail extends Component {
   static navigationOptions = {
     title: 'Detail',
     tabBarLabel: 'Dashboard',
-    header: null,
     tabBarIcon: ({ tintColor }) =>
       <Icon name="home" size={30} color={tintColor} />
   }

@@ -1,13 +1,43 @@
-import React from 'react';
-import { StyleSheet, Text, ImageBackground, TouchableHighlight, View, Image, TextInput } from 'react-native';
-import * as Animatable from 'react-native-animatable';
+import React, { Component } from 'react';
+import { View } from 'react-native';
+import { TabNavigator, StackNavigator } from 'react-navigation';
+import { Icon } from 'react-native-elements';
 
-export default class Home extends React.Component {
-  render () {
+import One from '../pages/one';
+import Onea from '../pages/onea';
+import Two from '../pages/two';
+import Three from '../pages/three';
+import detail from '../pages/detail';
+
+export default class DashBoard extends Component {
+  render() {
+    const Footer = TabNavigator({
+      one: {
+        screen: StackNavigator({
+          one: { screen: One },
+          detail: { screen: detail }
+        })
+      },
+      two: {
+        screen: StackNavigator({
+          two: { screen: Two },
+        })
+      },
+      three: {
+        screen: StackNavigator({
+          three: { screen: Three },
+        })
+      }
+    }, {
+      tabBarPosition: 'bottom',
+      tabBarOptions: {
+        labelStyle: { fontSize: 10 }
+      }
+    });
     return (
-      <Text>
-        HELLO DASHBOARD
-      </Text>
-    )
+      <View style={{ flex: 1 }}>
+        <Footer />
+      </View>
+    );
   }
 }

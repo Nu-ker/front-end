@@ -15,6 +15,7 @@ import { Ionicons } from '@expo/vector-icons';
 import axios from 'axios'
 import Expo from "expo"
 const androidClientId = "174374570388-iv0u513o3haajik2k3414emc6jquo2at.apps.googleusercontent.com"
+const iosClientId= "174374570388-3dvqr4m4n0qau2bh5oamm4bok894qttf.apps.googleusercontent.com"
 export default class Home extends React.Component {
   constructor(props) {
     super(props)
@@ -30,6 +31,7 @@ export default class Home extends React.Component {
       console.log('=>>>>> LOGIN')
       const result = await Expo.Google.logInAsync({
         androidClientId: androidClientId,
+        iosClientId:iosClientId,
         scopes: ["profile", "email"]
       })
 
