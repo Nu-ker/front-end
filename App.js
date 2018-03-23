@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, ImageBackground, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import Home from './src/components/Home'
 import Form from './src/components/Form'
 import DashBoard from './src/components/DashBoard'
