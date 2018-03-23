@@ -1,22 +1,53 @@
 import React, { Component } from 'react';
-import { View, Image, ScrollView, TouchableOpacity, ImageBackground, Text, StyleSheet, Button } from 'react-native';
+import { 
+  View, 
+  Image, 
+  ScrollView, 
+  TouchableOpacity, 
+  ImageBackground, 
+  Text, 
+  StyleSheet, 
+  Button,
+  AsyncStorage
+} from 'react-native';
+import {
+  bindActionCreators
+} from 'redux'
+import {
+  connect
+} from "react-redux";
 import { Icon } from 'react-native-elements';
 import { StackNavigator } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
 import moment from 'moment'
 import * as Animatable from 'react-native-animatable';
+import { db } from '../firebase'
+import { setInit } from '../store/actions/nucare'
+import axios from 'axios'
 
-export default class One extends Component {
+class One extends Component {
   constructor () {
     super()
     this.state = {
-      tanggal: moment().format('MMMM DD, YYYY')
+      tanggal: moment().format('MMMM-DD-YYYY')
     }
+  }
+  componentWillMount = async ()=>{
+    let self = this
+    AsyncStorage.getItem('uid',(err,result)=>{
+      const dateCheck = axios.get('https://us-central1-nu-ker-fox.cloudfunctions.net/DateCheck',{
+        headers: {
+          uid: result,
+          date: moment().format('MMMM-DD-YYYY')
+        }
+      })
+      self.props.setInit()
+    })
   }
 
   back () {
     const dataBack = new Date(this.state.tanggal).getTime() - 86400000;
-    const fixDataBack = moment(dataBack).format('MMMM DD, YYYY')
+    const fixDataBack = moment(dataBack).format('MMMM-DD-YYYY')
     this.setState({
       tanggal: fixDataBack
     })
@@ -24,7 +55,7 @@ export default class One extends Component {
 
   forward () {
     const dataForward = new Date(this.state.tanggal).getTime() + 86400000;
-    const fixDataForward = moment(dataForward).format('MMMM DD, YYYY')
+    const fixDataForward = moment(dataForward).format('MMMM-DD-YYYY')
     this.setState({
       tanggal: fixDataForward
     })
@@ -38,17 +69,17 @@ export default class One extends Component {
       <Icon name="home" size={30} color={tintColor}/>
   }
   render() {
+    const { loading , error , data } = this.props.stateNucare
     const { navigate } = this.props.navigation;
-    return (
-      <View style={styles.container}>
-
+    if(loading){
+      return (
+        <View style={styles.container}>
         <View style={styles.one}>
           <View style={styles.left}>
             <TouchableOpacity onPress={() => this.back()}>
               <Ionicons style={{textAlign: 'right'}} name="ios-arrow-back-outline" color="white" size={40}></Ionicons>
             </TouchableOpacity>
           </View>
-
           <View style={styles.date}>
               <Text style={{fontWeight: 'bold', color: 'white', textAlign: 'center', fontSize: 18, marginTop: 8}}>
                 <Animatable.Text animation="flipInX">
@@ -74,50 +105,76 @@ export default class One extends Component {
             </View>
           </View>
         </View>
+        </View>
+      )
+    }else if(error){
+      return (
+        <View style={styles.container}>
+        <Text style={styles.textImage}>{error}</Text>
+        </View>
+      )
+    }else{
+    return (
+      <View style={styles.container}>
+        <View style={styles.one}>
+          <View style={styles.left}>
+            <TouchableOpacity 
+            disabled={Object.keys(data.dates)[0] === this.state.tanggal}
+            onPress={() => this.back()}>
+              <Ionicons style={{textAlign: 'right'}} name="ios-arrow-back-outline" color="white" size={40}></Ionicons>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.date}>
+              <Text style={{fontWeight: 'bold', color: 'white', textAlign: 'center', fontSize: 18, marginTop: 8}}>
+                <Animatable.Text animation="flipInX">
+                  {this.state.tanggal}
+                </Animatable.Text>
+              </Text>
+          </View>
+          <View style={styles.right}>
+            <TouchableOpacity 
+            disabled={moment().format('MMMM-DD-YYYY') === this.state.tanggal}
+            onPress={() => this.forward()}>
+              <Ionicons style={{textAlign: 'left'}} name="ios-arrow-forward-outline" color="white" size={40}></Ionicons>
+            </TouchableOpacity>
+          </View>
+        </View>
 
+        <View style={styles.two}>
+          <View style={styles.wrapper}>
+            <View style={styles.wrapperIn}>
+              <Animatable.Text animation="pulse" easing="ease-out" iterationCount="infinite" style={{ textAlign: 'center' }}>
+              <Text style={styles.calory}>
+                {data.dates[this.state.tanggal].calories}
+              </Text>
+              </Animatable.Text>
+              <Text style={styles.caloryRemaining}>Calories Remaining</Text>
+            </View>
+          </View>
+        </View>
         <ScrollView style={{backgroundColor: 'white', margin: 7, width: '97%'}}>
           <Text style={styles.today}>Today's Consumption</Text>
           <View style={styles.three}>
-            <TouchableOpacity style={{width: '33%', padding: 5}} onPress={() => navigate('detail')}>
-              <ImageBackground style={styles.pic} source={{uri : 'https://www.goodindonesianfood.com/story/file/2017/02/Makassar-classic-Warung-Pangkep-Sop-Saudara-1-1170x780.jpg'}}>
-                <Text style={styles.textImage}>50 Kcal</Text>
-              </ImageBackground>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={{width: '33%', padding: 5}} onPress={() => navigate('detail')}>
-              <ImageBackground style={styles.pic} source={{uri : 'https://www.goodindonesianfood.com/story/file/2017/02/Makassar-classic-Warung-Pangkep-Sop-Saudara-1-1170x780.jpg'}}>
-                <Text style={styles.textImage}>50 Kcal</Text>
-              </ImageBackground>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={{width: '33%', padding: 5}} onPress={() => navigate('detail')}>
-              <ImageBackground style={styles.pic} source={{uri : 'https://www.goodindonesianfood.com/story/file/2017/02/Makassar-classic-Warung-Pangkep-Sop-Saudara-1-1170x780.jpg'}}>
-                <Text style={styles.textImage}>150 Kcal</Text>
-              </ImageBackground>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={{width: '33%', padding: 5}} onPress={() => navigate('detail')}>
-              <ImageBackground style={styles.pic} source={{uri : 'https://www.goodindonesianfood.com/story/file/2017/02/Makassar-classic-Warung-Pangkep-Sop-Saudara-1-1170x780.jpg'}}>
-                <Text style={styles.textImage}>20 Kcal</Text>
-              </ImageBackground>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={{width: '33%', padding: 5}} onPress={() => navigate('detail')}>
-              <ImageBackground style={styles.pic} source={{uri : 'https://www.goodindonesianfood.com/story/file/2017/02/Makassar-classic-Warung-Pangkep-Sop-Saudara-1-1170x780.jpg'}}>
-                <Text style={styles.textImage}>60 Kcal</Text>
-              </ImageBackground>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={{width: '33%', padding: 5}} onPress={() => navigate('detail')}>
-              <ImageBackground style={styles.pic} source={{uri : 'https://www.goodindonesianfood.com/story/file/2017/02/Makassar-classic-Warung-Pangkep-Sop-Saudara-1-1170x780.jpg'}}>
-                <Text style={styles.textImage}>70 Kcal</Text>
-              </ImageBackground>
-            </TouchableOpacity>
+          {
+            data.dates[this.state.tanggal].foods? 
+            Object.entries(data.dates[this.state.tanggal].foods).map((key,i)=>(
+              <TouchableOpacity
+              key={i}
+              style={{width: '33%', padding: 5}} 
+              onPress={() => navigate('detail',{
+                food: key
+              })}>
+                <ImageBackground style={styles.pic} source={{uri : key[1].photoUrl}}>
+                  <Text style={styles.textImage}>{key[1].calories} Kcal</Text>
+                </ImageBackground>
+              </TouchableOpacity>
+            )):<Text></Text>
+          }
           </View>
         </ScrollView>
-
       </View>
     )
+  }
   }
 }
 
@@ -228,3 +285,16 @@ const styles = StyleSheet.create({
     height: 50
   }
 })
+const mapStateToProps = (state, props) => ({
+  stateNucare: state.Nucare,
+})
+const mapDispacthToProps = (dispatch) => (
+  bindActionCreators({
+    setInit
+  }, dispatch)
+)
+
+export default connect(
+  mapStateToProps,
+  mapDispacthToProps
+)(One)

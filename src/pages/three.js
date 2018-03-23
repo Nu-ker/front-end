@@ -1,22 +1,31 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, ImageBackground, Text, StyleSheet, Button } from 'react-native';
+import { View, TouchableOpacity, AsyncStorage, ImageBackground, Text, StyleSheet, Button } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
+import {
+  connect
+} from "react-redux";
+import { NavigationActions } from 'react-navigation'
 
-export default class Three extends Component {
+class Three extends Component {
   static navigationOptions = {
     title: 'Profile',
     tabBarLabel: 'Profile',
     tabBarIcon: ({ tintColor }) =>
     <Icon name="person" size={30} color={tintColor}/>
   }
-
+  logout=()=>{
+    AsyncStorage.removeItem('uid',err=>{
+      console.log(err);
+    })
+  }
   render() {
     const { navigate } = this.props.navigation;
+    const { data, error, loading } = this.props.stateNucare
     return (
       <View style={styles.container}>
 
-        <ImageBackground source={{uri : 'https://i.pinimg.com/originals/24/fb/c2/24fbc25e1c64ffcac48baf3c50e8c61f.jpg'}} style={styles.profilePicture}>
+        <ImageBackground source={{uri : data.photoUrl}} style={styles.profilePicture}>
           <View style={styles.circle}>
             <Ionicons name="md-person" size={110} style={{alignSelf: 'center', margin: 12}} color="azure"></Ionicons>
           </View>
@@ -29,7 +38,7 @@ export default class Three extends Component {
               Name :
             </Text>
             <Text style={{marginLeft: 10, fontSize: 18, fontWeight: 'bold'}}>
-              Arief Tri Munandar
+              {data.name}
             </Text>
           </View>
 
@@ -38,7 +47,7 @@ export default class Three extends Component {
               Age :
             </Text>
             <Text style={{marginLeft: 10, fontSize: 18, fontWeight: 'bold'}}>
-              23
+              {data.age}
             </Text>
           </View>
 
@@ -47,7 +56,7 @@ export default class Three extends Component {
               E-mail :
             </Text>
             <Text style={{marginLeft: 10, fontSize: 18, fontWeight: 'bold'}}>
-              arief@gmail.com
+              {data.email}
             </Text>
           </View>
 
@@ -56,7 +65,7 @@ export default class Three extends Component {
               Weight :
             </Text>
             <Text style={{marginLeft: 10, fontSize: 18, fontWeight: 'bold'}}>
-              56 kg
+              {data.weight} kg
             </Text>
           </View>
 
@@ -65,7 +74,7 @@ export default class Three extends Component {
               Height :
             </Text>
             <Text style={{marginLeft: 10, fontSize: 18, fontWeight: 'bold'}}>
-              170 cm
+              {data.height} cm
             </Text>
           </View>
 
@@ -74,17 +83,17 @@ export default class Three extends Component {
               Activity :
             </Text>
             <Text style={{marginLeft: 10, fontSize: 18, fontWeight: 'bold'}}>
-              Hot
+              {data.activity}
             </Text>
           </View>
 
-          <TouchableOpacity onPress={() => navigate('EditProfile')} style={{ alignSelf: 'center', marginTop: 15, padding: 10, backgroundColor: 'lightblue', borderRadius: 5, width: '96%' }}>
+          <TouchableOpacity onPress={() => navigate('EditProfile',{
+            user: data
+          })} style={{ alignSelf: 'center', marginTop: 15, padding: 10, backgroundColor: 'lightblue', borderRadius: 5, width: '96%' }}>
             <Text style={{textAlign: 'center', fontSize: 14, fontWeight: 'bold'}}>Edit Profile</Text>
           </TouchableOpacity>
 
         </View>
-
-
       </View>
     );
   }
@@ -125,3 +134,10 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1
   }
 });
+const mapStateToProps = (state, props) => ({
+  stateNucare: state.Nucare,
+})
+
+export default connect(
+  mapStateToProps
+)(Three)
