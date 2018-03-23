@@ -3,6 +3,9 @@ import { StyleSheet, Text, ScrollView, ImageBackground, TouchableHighlight, View
 import * as Animatable from 'react-native-animatable';
 
 export default class Home extends React.Component {
+  componentWillMount(){
+    console.log(this.props.navigation.state.params.dataLogin);
+  }
   render () {
     return (
       <ImageBackground style={styles.back} source={require('../assets/tes.jpg')}>
