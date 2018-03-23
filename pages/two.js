@@ -6,16 +6,17 @@ import Camera from '../components/camera'
 export default class Two extends Component {
   static navigationOptions = {
     title: 'Two',
+    header: null,
     tabBarLabel: 'Camera',
     headerTitleStyle: {
       flex: 1,
       fontWeight: "bold",
       textAlign: "center",
-      alignSelf: 'center',              
+      alignSelf: 'center',
     },
-    
+
     tabBarIcon: ({ tintColor }) =>
-      <Icon name="shopping-basket" size={30} color={tintColor} />
+      <Icon name="camera-alt" size={30} color={tintColor} />
   }
   render() {
     const { navigate } = this.props.navigation;
@@ -36,5 +37,5 @@ const styles = StyleSheet.create({
     backgroundColor: "#f4511e",
     paddingRight: 10,
     paddingLeft: 10
-  },  
+  },
 });

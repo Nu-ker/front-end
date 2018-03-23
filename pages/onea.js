@@ -7,7 +7,7 @@ export default class One extends Component {
     title: 'One',
     tabBarLabel: 'One',
     tabBarIcon: ({ tintColor }) =>
-      <Icon name="shopping-basket" size={30} color={tintColor} />
+      <Icon name="camera-retro" size={30} color={tintColor} />
   }
   render() {
     return (

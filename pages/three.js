@@ -8,8 +8,8 @@ export default class Three extends Component {
     title: 'Three',
     tabBarLabel: 'Profile',
     tabBarIcon: ({ tintColor }) =>
-    <Icon name="list" size={30} />
-      
+    <Icon name="group-work" size={30} />
+
   }
   render() {
     const { navigate } = this.props.navigation;
