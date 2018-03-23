@@ -1,6 +1,27 @@
 {
   "expo": {
+    "name": "sample",
+    "description": "The app to find the best renters.",
+    "slug": "report-abuser-app",
+    "icon": "https://w3bsite.online/services/fa/files/images/services/mobileapp.png",
+    "privacy": "public",
+    "orientation": "portrait",
     "sdkVersion": "25.0.0",
-    "orientation": "portrait"
+    "packagerOpts": {
+      "assetExts": [
+        "ttf"
+      ]
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.sample.sample"
+    },
+    "android": {
+      "package": "com.sample.sample",
+      "permissions":[ "CAMERA" ]
+    },
+    "splash":{
+      "image": "http://images.mobile-patterns.com/1418337663850-2014-12-11%2015.16.39.png"
+    }
   }
 }
