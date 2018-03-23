@@ -42,7 +42,19 @@ export default class One extends Component {
           <ScrollView style={{backgroundColor: 'white', margin: 7, width: '97%'}}>
             <Text style={styles.today}>Today's Consumption</Text>
             <View style={styles.two}>
-              <TouchableOpacity style={{width: '30%'}} onPress={() => navigate('detail')}>
+              <TouchableOpacity style={{width: '33%', padding: 5}} onPress={() => navigate('detail')}>
+                <ImageBackground style={styles.pic} source={{uri : 'https://www.goodindonesianfood.com/story/file/2017/02/Makassar-classic-Warung-Pangkep-Sop-Saudara-1-1170x780.jpg'}}>
+                  <Text style={styles.textImage}>50 Kcal</Text>
+                </ImageBackground>
+              </TouchableOpacity>
+
+              <TouchableOpacity style={{width: '33%', padding: 5}} onPress={() => navigate('detail')}>
+                <ImageBackground style={styles.pic} source={{uri : 'https://www.goodindonesianfood.com/story/file/2017/02/Makassar-classic-Warung-Pangkep-Sop-Saudara-1-1170x780.jpg'}}>
+                  <Text style={styles.textImage}>50 Kcal</Text>
+                </ImageBackground>
+              </TouchableOpacity>
+
+              <TouchableOpacity style={{width: '33%', padding: 5}} onPress={() => navigate('detail')}>
                 <ImageBackground style={styles.pic} source={{uri : 'https://www.goodindonesianfood.com/story/file/2017/02/Makassar-classic-Warung-Pangkep-Sop-Saudara-1-1170x780.jpg'}}>
                   <Text style={styles.textImage}>50 Kcal</Text>
                 </ImageBackground>
@@ -79,6 +91,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexWrap: 'wrap',
     flexDirection: 'row',
+    justifyContent: 'space-between',
     width: '100%',
   },
   date: {
@@ -124,7 +137,7 @@ const styles = StyleSheet.create({
   pic: {
     width: '100%',
     height: 100,
-    margin: 5
+    margin: 2
   },
   textImage: {
     backgroundColor: 'rgba(0, 0, 0, 0.4)',
