@@ -24,7 +24,7 @@ export default class EditProfile extends Component {
   onSelectGender(value, label) {
     this.setState({
       ...this.state,
-      value: value,
+      value: label,
       sex : value
     });
   }
@@ -43,6 +43,7 @@ export default class EditProfile extends Component {
     tabBarIcon: ({ tintColor }) =>
     <Icon name="person" size={30} color={tintColor}/>
   }
+
   handleSubmit= async ()=>{
     let self = this
     AsyncStorage.getItem('uid',(err,result)=>{
@@ -70,6 +71,36 @@ export default class EditProfile extends Component {
       }
   })
   }
+
+  componentWillMount () {
+    if (this.state.activity === '1.9') {
+      this.setState({
+        ...this.state,
+        valueActivity: 'Extreme'
+      })
+    } else if (this.state.activity === '1.725') {
+      this.setState({
+        ...this.state,
+        valueActivity: 'Very Active'
+      })
+    } else if (this.state.activity === '1.55') {
+      this.setState({
+        ...this.state,
+        valueActivity: 'Active'
+      })
+    } else if (this.state.activity === '1.375') {
+      this.setState({
+        ...this.state,
+        valueActivity: 'Lightly'
+      })
+    } else if (this.state.activity === '1.2') {
+      this.setState({
+        ...this.state,
+        valueActivity: 'Sedentary'
+      })
+    }
+  }
+
   render () {
     return (
       <ScrollView style={styles.wrap}>
@@ -94,7 +125,7 @@ export default class EditProfile extends Component {
 
           <Select
             onSelect = {this.onSelectGender.bind(this)}
-            defaultText={this.state.value}
+            defaultText={this.state.sex}
             textStyle={{color: 'black'}}
             style = {{margin: 8, padding: 10, width: '90%', alignSelf: 'center', borderBottomWidth: 1}}
             transparent={true}
@@ -153,7 +184,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   text: {
-    color: 'white',
+    color: 'black',
     fontWeight: 'bold',
     fontSize: 17,
     padding: 5,

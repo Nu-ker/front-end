@@ -131,9 +131,13 @@ class One extends Component {
                 food: key,
                 date: this.state.tanggal
               })}>
-                <ImageBackground style={styles.pic} source={{uri : key[1].photoUrl}}>
-                  <Text style={styles.textImage}>{key[1].calories} Kcal</Text>
-                </ImageBackground>
+                <Animatable.View animation="bounceIn">
+                  <View>
+                    <ImageBackground style={styles.pic} source={{uri : key[1].photoUrl}}>
+                      <Text style={styles.textImage}>{key[1].calories} Kcal</Text>
+                    </ImageBackground>
+                  </View>
+                </Animatable.View>
               </TouchableOpacity>
             )):<Text></Text>
           }
@@ -168,7 +172,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   two: {
-    backgroundColor: '#6dbbff',
+    backgroundColor: '#a0d1ff',
     borderBottomWidth: 5,
     borderBottomColor: 'white',
     flex: 1,
@@ -202,7 +206,7 @@ const styles = StyleSheet.create({
   },
   wrapper: {
     width: '50%',
-    height: '75%',
+    height: '73%',
     backgroundColor: 'white',
     justifyContent: 'center',
     borderRadius: 100,

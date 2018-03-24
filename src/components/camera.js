@@ -39,7 +39,7 @@ export default class App extends React.Component {
     }
 
     return (
-      <ImageBackground style={{width: '100%', height: '100%'}} source={{uri: 'https://i.pinimg.com/originals/0f/31/4e/0f314e6eda496661551ec03592486038.jpg'}}>
+      <ImageBackground source={require('../assets/cmr.jpg')} style={{width: '100%', height: '100%'}}>
         <View style={styles.container}>
           {imageView}
           {labelView}
