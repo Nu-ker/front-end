@@ -3,6 +3,9 @@ import { View, TouchableOpacity, Text, StyleSheet, TextInput, ScrollView, Picker
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { Icon } from 'react-native-elements';
 import axios from 'axios'
+import { Ionicons } from '@expo/vector-icons';
+import {Select, Option} from "react-native-chooser";
+import * as Animatable from 'react-native-animatable';
 
 export default class EditProfile extends Component {
   constructor(props) {
@@ -13,11 +16,29 @@ export default class EditProfile extends Component {
       age:props.navigation.state.params.user.age,
       sex:props.navigation.state.params.user.sex,
       activity:props.navigation.state.params.user.activity,
+      value: "Select Gender",
+      valueActivity: 'Activity'
     }
   }
 
+  onSelectGender(value, label) {
+    this.setState({
+      ...this.state,
+      value: value,
+      sex : value
+    });
+  }
+
+  onSelectActivity(value, label) {
+    this.setState({
+      ...this.state,
+      activity: value,
+      valueActivity: label
+    })
+  }
+
   static navigationOptions = {
-    title: 'Profile',
+    title: 'Edit Profile',
     tabBarLabel: 'Profile',
     tabBarIcon: ({ tintColor }) =>
     <Icon name="person" size={30} color={tintColor}/>
@@ -52,47 +73,49 @@ export default class EditProfile extends Component {
   render () {
     return (
       <ScrollView style={styles.wrap}>
-          <TextInput placeholder="Your age" keyboardType="default" style={styles.input}
+          <TextInput keyboardType="phone-pad" placeholder="Your age" style={styles.input}
           onChangeText={(age) => this.setState({
             ...this.state,
             age
           })}
           value={this.state.age}/>
-          <TextInput placeholder="Your Weight (kg)" keyboardType="default" style={styles.input}
+        <TextInput keyboardType="phone-pad" placeholder="Your Weight (kg)" style={styles.input}
           onChangeText={(weight) => this.setState({
             ...this.state,
             weight
           })}
           value={this.state.weight}/>
-          <TextInput placeholder="Your Height (cm)" keyboardType="default" style={styles.input}
+        <TextInput keyboardType="phone-pad" placeholder="Your Height (cm)" style={styles.input}
           onChangeText={(height) => this.setState({
             ...this.state,
             height
           })}
           value={this.state.height}/>
-          <Picker
-            style={{width: '90%', alignSelf:'center'}}
-            selectedValue={this.state.sex}
-            onValueChange={(itemValue, itemIndex) => this.setState({
-              ...this.state,
-              sex:itemValue})}>
-            <Picker.Item label="Male" value="male" />
-            <Picker.Item label="Female" value="female" />
-          </Picker>
 
-          <Picker
-            style={{width: '90%', alignSelf:'center'}}
-            selectedValue={this.state.activity}
-            onValueChange={(itemValue, itemIndex) => this.setState({
-              ...this.state,
-              activity:itemValue
-            })}>
-            <Picker.Item label="Sedentary" value="1.2" />
-            <Picker.Item label="Lightly Active" value="1.375" />
-            <Picker.Item label="Active" value="1.55" />
-            <Picker.Item label="Very Active" value=" 1.725" />
-            <Picker.Item label="Extreme" value="1.9" />
-          </Picker>
+        <Select
+          onSelect = {this.onSelectGender.bind(this)}
+          defaultText={this.state.value}
+          style = {{margin: 8, padding: 10, width: '90%', alignSelf: 'center', borderBottomWidth: 1}}
+          backdropStyle  = {{backgroundColor : "#d3d5d6"}}
+          optionListStyle = {{backgroundColor : "#F5FCFF", height: 80}}
+        >
+          <Option value={"Male"}>Male</Option>
+          <Option value={"Female"}>Female</Option>
+        </Select>
+
+        <Select
+          onSelect = {this.onSelectActivity.bind(this)}
+          defaultText={this.state.valueActivity}
+          style = {{margin: 8, padding: 10, width: '90%', alignSelf: 'center', borderBottomWidth: 1}}
+          backdropStyle  = {{backgroundColor : "#d3d5d6"}}
+          optionListStyle = {{backgroundColor : "#F5FCFF", height: 200}}
+        >
+          <Option value={"1.2"}>Sedentary</Option>
+          <Option value={"1.375"}>Lightly</Option>
+          <Option value={"1.55"}>Active</Option>
+          <Option value={"1.725"}>Very Active</Option>
+          <Option value={"1.9"}>Extreme</Option>
+        </Select>
 
           <TouchableHighlight onPress={() => this.handleSubmit()} style={styles.next}>
             <Text style={styles.text}>Save</Text>
@@ -110,12 +133,11 @@ const styles = StyleSheet.create({
   },
   input: {
     alignSelf: 'center',
-    borderWidth: 1,
+    borderBottomWidth: 1,
     width: '90%',
     height: 40,
     margin: 8,
-    padding: 10,
-    backgroundColor: 'white',
+    padding: 10
   },
   next: {
     backgroundColor: 'lightblue',

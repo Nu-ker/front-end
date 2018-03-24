@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, AsyncStorage, ImageBackground, Text, StyleSheet, Button } from 'react-native';
+import { View, ScrollView, TouchableOpacity, AsyncStorage, ImageBackground, Image, Text, StyleSheet, Button } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
 import {
@@ -20,80 +20,84 @@ class Three extends Component {
   logout=()=>{
     this.props.logOut()
   }
+
+  //data.photoUrl
   render() {
     const { navigate } = this.props.navigation;
     const { data, error, loading } = this.props.stateNucare
     return (
       <View style={styles.container}>
-        <ImageBackground source={{uri : data.photoUrl}} style={styles.profilePicture}>
-          <View style={styles.circle}>
-            <Ionicons name="md-person" size={110} style={{alignSelf: 'center', margin: 12}} color="azure"></Ionicons>
-          </View>
+        <ImageBackground source={{uri : 'https://i.pinimg.com/originals/24/fb/c2/24fbc25e1c64ffcac48baf3c50e8c61f.jpg'}} style={styles.profilePicture}>
+          <Image style={styles.circle} source={{uri: data.photoUrl}}>
+          </Image>
         </ImageBackground>
 
         <View style={styles.profileDetail}>
-
+          <ScrollView>
           <View style={styles.bio}>
-            <Text style={{marginLeft: 10, fontSize: 18, fontWeight: 'bold'}}>
+            <Text style={styles.desc}>
               Name :
             </Text>
-            <Text style={{marginLeft: 10, fontSize: 18, fontWeight: 'bold'}}>
+            <Text style={styles.desc}>
               {data.name}
             </Text>
           </View>
 
           <View style={styles.bio}>
-            <Text style={{marginLeft: 10, fontSize: 18, fontWeight: 'bold'}}>
+            <Text style={styles.desc}>
               Age :
             </Text>
-            <Text style={{marginLeft: 10, fontSize: 18, fontWeight: 'bold'}}>
+            <Text style={styles.desc}>
               {data.age}
             </Text>
           </View>
 
           <View style={styles.bio}>
-            <Text style={{marginLeft: 10, fontSize: 18, fontWeight: 'bold'}}>
+            <Text style={styles.desc}>
               E-mail :
             </Text>
-            <Text style={{marginLeft: 10, fontSize: 18, fontWeight: 'bold'}}>
+            <Text style={styles.desc}>
               {data.email}
             </Text>
           </View>
 
           <View style={styles.bio}>
-            <Text style={{marginLeft: 10, fontSize: 18, fontWeight: 'bold'}}>
+            <Text style={styles.desc}>
               Weight :
             </Text>
-            <Text style={{marginLeft: 10, fontSize: 18, fontWeight: 'bold'}}>
+            <Text style={styles.desc}>
               {data.weight} kg
             </Text>
           </View>
 
           <View style={styles.bio}>
-            <Text style={{marginLeft: 10, fontSize: 18, fontWeight: 'bold'}}>
+            <Text style={styles.desc}>
               Height :
             </Text>
-            <Text style={{marginLeft: 10, fontSize: 18, fontWeight: 'bold'}}>
+            <Text style={styles.desc}>
               {data.height} cm
             </Text>
           </View>
 
           <View style={styles.bio}>
-            <Text style={{marginLeft: 10, fontSize: 18, fontWeight: 'bold'}}>
+            <Text style={styles.desc}>
               Activity :
             </Text>
-            <Text style={{marginLeft: 10, fontSize: 18, fontWeight: 'bold'}}>
+            <Text style={styles.desc}>
               {data.activity}
             </Text>
           </View>
-          <TouchableOpacity onPress={() => this.logout()} style={{ alignSelf: 'center', marginTop: 15, padding: 10, backgroundColor: 'lightblue', borderRadius: 5, width: '96%' }}>
-            <Text style={{textAlign: 'center', fontSize: 14, fontWeight: 'bold'}}>LogOut</Text>
-          </TouchableOpacity>
+
           <TouchableOpacity onPress={() => navigate('EditProfile',{
-            user: data
-          })} style={{ alignSelf: 'center', marginTop: 15, padding: 10, backgroundColor: 'lightblue', borderRadius: 5, width: '96%' }}>
+              user: data
+            })} style={styles.tombolEdit}>
             <Text style={{textAlign: 'center', fontSize: 14, fontWeight: 'bold'}}>Edit Profile</Text>
           </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => this.logout()} style={styles.tombolLogout}>
+            <Text style={{textAlign: 'center', fontSize: 14, fontWeight: 'bold'}}>LogOut</Text>
+          </TouchableOpacity>
+        </ScrollView>
         </View>
       </View>
     );
@@ -113,36 +117,63 @@ const styles = StyleSheet.create({
   },
   profileDetail: {
     flex: 1,
-    backgroundColor: 'azure',
     width: '100%',
     flexDirection: 'column'
   },
   circle: {
     margin: 12,
     alignSelf: 'center',
-    width: '42%',
+    width: '40%',
     height: '85%',
     backgroundColor: 'lightblue',
-    borderRadius: 100
+    borderRadius: 75
   },
   bio: {
+    padding: 10,
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     width: '100%',
     maxHeight: 50,
+    width: '90%',
+    alignSelf: 'center',
     borderBottomColor: 'black',
     borderBottomWidth: 1
+  },
+  desc: {
+    marginLeft: 1,
+    fontSize: 18,
+    fontWeight: 'bold'
+  },
+  tombolEdit: {
+    alignSelf: 'center',
+    marginTop: 15,
+    padding: 10,
+    backgroundColor: 'lightblue',
+    borderRadius: 5,
+    width: '90%'
+  },
+  tombolLogout: {
+    alignSelf: 'center',
+    marginTop: 15,
+    padding: 10,
+    backgroundColor: 'lightblue',
+    borderRadius: 5,
+    width: '90%',
+    marginBottom: 10
   }
 });
+
 const mapStateToProps = (state, props) => ({
   stateNucare: state.Nucare,
 })
+
 const mapDispacthToProps = (dispatch) => (
   bindActionCreators({
       logOut
   }, dispatch)
   )
+
 export default connect(
   mapStateToProps,
   mapDispacthToProps

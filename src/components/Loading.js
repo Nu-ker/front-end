@@ -1,14 +1,14 @@
 import React from 'react';
-import { 
-  StyleSheet, 
-  Text, 
-  ImageBackground, 
-  TouchableHighlight, 
-  View, 
-  Image, 
-  TextInput, 
-  ActivityIndicator, 
-  AsyncStorage 
+import {
+  StyleSheet,
+  Text,
+  ImageBackground,
+  TouchableHighlight,
+  View,
+  Image,
+  TextInput,
+  ActivityIndicator,
+  AsyncStorage
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { Ionicons } from '@expo/vector-icons';
@@ -43,11 +43,11 @@ class Loading extends React.Component {
       return <ErrorPage error={error}/>
     }else if(uid){
         return (
-            <NaviD/>
+          <NaviD/>
         )
     }else{
         return (
-            <Navi/>
+          <Navi/>
         )
     }
   }

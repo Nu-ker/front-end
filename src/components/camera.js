@@ -8,7 +8,8 @@ import {
   View,
   TouchableOpacity,
   Image,
-  ActivityIndicator
+  ActivityIndicator,
+  ImageBackground
 } from 'react-native';
 
 export default class App extends React.Component {
@@ -38,16 +39,18 @@ export default class App extends React.Component {
     }
 
     return (
-      <View style={styles.container}>
-        {imageView}
-        {labelView}
-        <Ionicons name="ios-image-outline" size={120} color="black"></Ionicons>
-        <TouchableOpacity
-          style={{ padding: 10, backgroundColor: 'lightblue', borderRadius: 5 }}
-          onPress={this._pickImage}>
-          <Text>Take A Picture</Text>
-        </TouchableOpacity>
-      </View>
+      <ImageBackground style={{width: '100%', height: '100%'}} source={{uri: 'https://i.pinimg.com/originals/0f/31/4e/0f314e6eda496661551ec03592486038.jpg'}}>
+        <View style={styles.container}>
+          {imageView}
+          {labelView}
+          <Ionicons name="ios-image-outline" size={120} color="black"></Ionicons>
+          <TouchableOpacity
+            style={{ padding: 10, backgroundColor: 'rgba(0, 0, 0, 0.5)', borderRadius: 5 }}
+            onPress={this._pickImage}>
+            <Text style={{color: 'white', fontWeight: 'bold'}}>Take A Picture</Text>
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
     )
   }
 
@@ -101,7 +104,6 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'azure',
     alignItems: 'center',
     justifyContent: 'center',
   },

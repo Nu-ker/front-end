@@ -1,14 +1,14 @@
 import React from 'react';
-import { 
-  StyleSheet, 
-  Text, 
-  ImageBackground, 
-  TouchableHighlight, 
-  View, 
-  Image, 
-  TextInput, 
-  ActivityIndicator, 
-  AsyncStorage 
+import {
+  StyleSheet,
+  Text,
+  ImageBackground,
+  TouchableHighlight,
+  View,
+  Image,
+  TextInput,
+  ActivityIndicator,
+  AsyncStorage
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { Ionicons } from '@expo/vector-icons';
@@ -17,6 +17,7 @@ import Expo from "expo"
 import LoadingPage from './LoadingPage'
 const androidClientId = "174374570388-iv0u513o3haajik2k3414emc6jquo2at.apps.googleusercontent.com"
 const iosClientId= "174374570388-3dvqr4m4n0qau2bh5oamm4bok894qttf.apps.googleusercontent.com"
+
 export default class Home extends React.Component {
   constructor(props) {
     super(props)
@@ -78,7 +79,7 @@ export default class Home extends React.Component {
               An App For Your Health
             </Text>
           </View>
-          <View style={styles.container}> 
+          <View style={styles.container}>
           <TouchableHighlight onPress={() => this.signIn()} style={styles.tombol}>
               <Animatable.Text animation="pulse" easing="ease-out" iterationCount="infinite" style={{ textAlign: 'center' }}>
                 <Text style={styles.text}>
@@ -86,9 +87,9 @@ export default class Home extends React.Component {
                 </Text>
                 <Ionicons style={styles.icon} name="logo-google" size={15} color="white" />
               </Animatable.Text>
-            </TouchableHighlight>       
+            </TouchableHighlight>
           </View>
-  
+
           <Text style={styles.textIcon}>
             <Ionicons name="logo-facebook" size={25} color="white" />
             &nbsp;

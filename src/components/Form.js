@@ -1,17 +1,19 @@
 import React from 'react';
-import { 
-  StyleSheet, 
-  Text, 
-  ScrollView, 
-  ImageBackground, 
-  TouchableHighlight, 
-  View, 
-  Image, 
+import {
+  StyleSheet,
+  Text,
+  ScrollView,
+  ImageBackground,
+  TouchableHighlight,
+  View,
+  Image,
   TextInput,
-  Picker 
+  AsyncStorage,
+  Picker
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import axios from 'axios'
+import axios from 'axios';
+import {Select, Option} from "react-native-chooser";
 
 export default class Home extends React.Component {
   constructor() {
@@ -20,13 +22,15 @@ export default class Home extends React.Component {
       weight:'',
       height:'',
       age:'',
-      sex:'male',
-      activity:'1.2',
-      weightTarget:''
+      sex:'',
+      activity:'',
+      weightTarget:'',
+      value: "Select Gender",
+      valueActivity: 'Activity'
     }
   }
   componentWillMount(){
-    console.log(this.props.navigation.state.params.dataLogin);
+    // console.log(this.props.navigation.state.params.dataLogin);
   }
   handleSubmit= async ()=>{
     console.log(this.state);
@@ -49,38 +53,71 @@ export default class Home extends React.Component {
       this.props.navigation.navigate('DashBoard')
     }
   }
+
+  onSelectGender(value, label) {
+    this.setState({
+      ...this.state,
+      value: value,
+      sex : value
+    });
+  }
+
+  onSelectActivity(value, label) {
+    this.setState({
+      ...this.state,
+      activity: value,
+      valueActivity: label
+    })
+  }
+
   render () {
     return (
       <ImageBackground style={styles.back} source={require('../assets/tes.jpg')}>
         <Text style={styles.judul}>Please Fill The Form</Text>
         <ScrollView style={styles.wrap}>
-          <TextInput placeholder="Your age" keyboardType="default" style={styles.input}
+          <TextInput placeholder="Your age" keyboardType="phone-pad" style={styles.input}
           onChangeText={(age) => this.setState({
             ...this.state,
             age
           })}
           value={this.state.age}/>
-          <TextInput placeholder="Your Weight (kg)" keyboardType="default" style={styles.input}
+        <TextInput placeholder="Your Weight (kg)" keyboardType="phone-pad" style={styles.input}
           onChangeText={(weight) => this.setState({
             ...this.state,
             weight
           })}
           value={this.state.weight}/>
-          <TextInput placeholder="Your Height (cm)" keyboardType="default" style={styles.input}
+        <TextInput placeholder="Your Height (cm)" keyboardType="phone-pad" style={styles.input}
           onChangeText={(height) => this.setState({
             ...this.state,
             height
           })}
           value={this.state.height}/>
-          <Picker
-            style={{width: '90%', alignSelf:'center'}}
-            selectedValue={this.state.sex}
-            onValueChange={(itemValue, itemIndex) => this.setState({
-              ...this.state,
-              sex:itemValue})}>
-            <Picker.Item label="Male" value="male" />
-            <Picker.Item label="Female" value="female" />
-          </Picker>
+
+          <Select
+            onSelect = {this.onSelectGender.bind(this)}
+            defaultText={this.state.value}
+            style = {{margin: 8, padding: 10, width: '90%', alignSelf: 'center', borderBottomWidth: 1}}
+            backdropStyle  = {{backgroundColor : "#d3d5d6"}}
+            optionListStyle = {{backgroundColor : "#F5FCFF", height: 80}}
+          >
+            <Option value={"Male"}>Male</Option>
+            <Option value={"Female"}>Female</Option>
+          </Select>
+
+          <Select
+            onSelect = {this.onSelectActivity.bind(this)}
+            defaultText={this.state.valueActivity}
+            style = {{margin: 8, padding: 10, width: '90%', alignSelf: 'center', borderBottomWidth: 1}}
+            backdropStyle = {{backgroundColor : "#d3d5d6"}}
+            optionListStyle = {{backgroundColor : "#F5FCFF", height: 200}}
+          >
+            <Option value={"1.2"}>Sedentary</Option>
+            <Option value={"1.375"}>Lightly</Option>
+            <Option value={"1.55"}>Active</Option>
+            <Option value={"1.725"}>Very Active</Option>
+            <Option value={"1.9"}>Extreme</Option>
+          </Select>
 
           <TextInput placeholder="Weight Target" keyboardType="default" style={styles.input}
           onChangeText={(weightTarget) => this.setState({
@@ -88,20 +125,6 @@ export default class Home extends React.Component {
             weightTarget
           })}
           value={this.state.weightTarget}/>
-
-          <Picker
-            style={{width: '90%', alignSelf:'center'}}
-            selectedValue={this.state.activity}
-            onValueChange={(itemValue, itemIndex) => this.setState({
-              ...this.state,
-              activity:itemValue
-            })}>
-            <Picker.Item label="Sedentary" value="1.2" />
-            <Picker.Item label="Lightly Active" value="1.375" />
-            <Picker.Item label="Active" value="1.55" />
-            <Picker.Item label="Very Active" value=" 1.725" />
-            <Picker.Item label="Extreme" value="1.9" />
-          </Picker>
 
           <TouchableHighlight onPress={() => this.handleSubmit()} style={styles.next}>
             <Text style={styles.text}>NEXT</Text>
@@ -119,16 +142,15 @@ const styles = StyleSheet.create({
   },
   input: {
     alignSelf: 'center',
-    borderWidth: 1,
+    borderBottomWidth: 1,
     width: '90%',
     height: 40,
     margin: 8,
-    padding: 10,
-    backgroundColor: 'white',
+    padding: 10
   },
   wrap: {
     width: '100%',
-    height: '100%',
+    height: '100%'
   },
   judul: {
     color: 'white',

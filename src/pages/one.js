@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { 
-  View, 
-  Image, 
-  ScrollView, 
-  TouchableOpacity, 
-  ImageBackground, 
-  Text, 
-  StyleSheet, 
+import {
+  View,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  ImageBackground,
+  Text,
+  StyleSheet,
   Button,
   AsyncStorage,
   ActivityIndicator
@@ -84,7 +84,7 @@ class One extends Component {
       <View style={styles.container}>
         <View style={styles.one}>
           <View style={styles.left}>
-            <TouchableOpacity 
+            <TouchableOpacity
             disabled={Object.keys(data.dates)[0] === this.state.tanggal}
             onPress={() => this.back()}>
               <Ionicons style={{textAlign: 'right'}} name="ios-arrow-back-outline" color="white" size={40}></Ionicons>
@@ -98,7 +98,7 @@ class One extends Component {
               </Text>
           </View>
           <View style={styles.right}>
-            <TouchableOpacity 
+            <TouchableOpacity
             disabled={moment().format('MMMM-DD-YYYY') === this.state.tanggal}
             onPress={() => this.forward()}>
               <Ionicons style={{textAlign: 'left'}} name="ios-arrow-forward-outline" color="white" size={40}></Ionicons>
@@ -122,11 +122,11 @@ class One extends Component {
           <Text style={styles.today}>Today's Consumption</Text>
           <View style={styles.three}>
           {
-            data.dates[this.state.tanggal].foods? 
+            data.dates[this.state.tanggal].foods?
             Object.entries(data.dates[this.state.tanggal].foods).map((key,i)=>(
               <TouchableOpacity
               key={i}
-              style={{width: '33%', padding: 5}} 
+              style={{width: '33%', padding: 5}}
               onPress={() => navigate('detail',{
                 food: key
               })}>
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexWrap: 'wrap',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     width: '100%',
   },
   dash: {
@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
   },
   wrapper: {
     width: '50%',
-    height: '70%',
+    height: '75%',
     backgroundColor: 'white',
     justifyContent: 'center',
     borderRadius: 100,
