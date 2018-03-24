@@ -58,9 +58,12 @@ export default class App extends React.Component {
     const {
       cancelled,
       uri,
-      base64,
+      base64      
     } = await Expo.ImagePicker.launchCameraAsync({
       base64: true,
+      quality : 0.1,
+      allowsEditing: true,
+      aspect: [4, 3],
     });
     if (!cancelled) {
       this.setState({
@@ -94,9 +97,15 @@ export default class App extends React.Component {
       body: JSON.stringify(body),
     });
     const parsed = await response.json();
-    console.log('tessss',parsed)
+    const data = parsed.responses[0].labelAnnotations
+    let arrayOfFood = []
+    for( let i in data ){      
+      arrayOfFood.push(data[i].description)      
+    }
+
+    console.log('tessss',arrayOfFood)
     this.setState({
-      label: parsed.responses[0].labelAnnotations[1].description,
+      label: arrayOfFood.join(', ')
     });
   }
 }
