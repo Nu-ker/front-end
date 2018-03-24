@@ -92,30 +92,36 @@ export default class EditProfile extends Component {
           })}
           value={this.state.height}/>
 
-        <Select
-          onSelect = {this.onSelectGender.bind(this)}
-          defaultText={this.state.value}
-          style = {{margin: 8, padding: 10, width: '90%', alignSelf: 'center', borderBottomWidth: 1}}
-          backdropStyle  = {{backgroundColor : "#d3d5d6"}}
-          optionListStyle = {{backgroundColor : "#F5FCFF", height: 80}}
-        >
-          <Option value={"Male"}>Male</Option>
-          <Option value={"Female"}>Female</Option>
-        </Select>
+          <Select
+            onSelect = {this.onSelectGender.bind(this)}
+            defaultText={this.state.value}
+            textStyle={{color: 'black'}}
+            style = {{margin: 8, padding: 10, width: '90%', alignSelf: 'center', borderBottomWidth: 1}}
+            transparent={true}
+            indicator="down"
+            indicatorColor="black"
+            optionListStyle = {{backgroundColor : "rgba(0, 0, 0, 0.8)", height: 80}}
+          >
+            <Option styleText={{color: 'white'}} value={"Male"}>Male</Option>
+            <Option styleText={{color: 'white'}} value={"Female"}>Female</Option>
+          </Select>
 
-        <Select
-          onSelect = {this.onSelectActivity.bind(this)}
-          defaultText={this.state.valueActivity}
-          style = {{margin: 8, padding: 10, width: '90%', alignSelf: 'center', borderBottomWidth: 1}}
-          backdropStyle  = {{backgroundColor : "#d3d5d6"}}
-          optionListStyle = {{backgroundColor : "#F5FCFF", height: 200}}
-        >
-          <Option value={"1.2"}>Sedentary</Option>
-          <Option value={"1.375"}>Lightly</Option>
-          <Option value={"1.55"}>Active</Option>
-          <Option value={"1.725"}>Very Active</Option>
-          <Option value={"1.9"}>Extreme</Option>
-        </Select>
+          <Select
+            onSelect = {this.onSelectActivity.bind(this)}
+            defaultText={this.state.valueActivity}
+            textStyle={{color: 'black'}}
+            style = {{margin: 8, padding: 10, width: '90%', alignSelf: 'center', borderBottomWidth: 1}}
+            transparent={true}
+            indicator="down"
+            indicatorColor="black"
+            optionListStyle = {{backgroundColor : "rgba(0, 0, 0, 0.8)", height: 200}}
+          >
+            <Option styleText={{color: 'white'}} value={"1.2"}>Sedentary</Option>
+            <Option styleText={{color: 'white'}} value={"1.375"}>Lightly</Option>
+            <Option styleText={{color: 'white'}} value={"1.55"}>Active</Option>
+            <Option styleText={{color: 'white'}} value={"1.725"}>Very Active</Option>
+            <Option styleText={{color: 'white'}} value={"1.9"}>Extreme</Option>
+          </Select>
 
           <TouchableHighlight onPress={() => this.handleSubmit()} style={styles.next}>
             <Text style={styles.text}>Save</Text>

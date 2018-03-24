@@ -57,6 +57,6 @@ function loading() {
 function error(payload) {
     return {
         type: "ERROR_AUTH",
-        payload 
+        payload
     }
 }
