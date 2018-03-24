@@ -33,8 +33,7 @@ export default class Detail extends Component {
         <View style={styles.detail}>
           <View style={{backgroundColor: 'white', margin: 5, width: '97%', height: '100%', alignSelf: 'center'}}>
             <Text style={styles.details}>Details</Text>
-            <Text>
-            </Text>
+
               <View style={styles.profileDetail}>
                 <ScrollView>
                 <View style={styles.bio}>

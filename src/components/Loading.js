@@ -73,8 +73,9 @@ const Navi = StackNavigator({
       navigationOptions: {
         header: null
       }
-    }
-  })
+    },
+  }
+)
 const NaviD = StackNavigator({
     DashBoard: {
       screen: DashBoard,

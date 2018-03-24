@@ -75,19 +75,19 @@ export default class Home extends React.Component {
       <ImageBackground style={styles.back} source={require('../assets/tes.jpg')}>
         <Text style={styles.judul}>Please Fill The Form</Text>
         <ScrollView style={styles.wrap}>
-          <TextInput placeholder="Your age" keyboardType="phone-pad" style={styles.input}
+          <TextInput placeholderTextColor="#d8e7ff" placeholder="Your age" keyboardType="phone-pad" style={styles.input}
           onChangeText={(age) => this.setState({
             ...this.state,
             age
           })}
           value={this.state.age}/>
-        <TextInput placeholder="Your Weight (kg)" keyboardType="phone-pad" style={styles.input}
+        <TextInput placeholderTextColor="#d8e7ff" placeholder="Your Weight (kg)" keyboardType="phone-pad" style={styles.input}
           onChangeText={(weight) => this.setState({
             ...this.state,
             weight
           })}
           value={this.state.weight}/>
-        <TextInput placeholder="Your Height (cm)" keyboardType="phone-pad" style={styles.input}
+        <TextInput placeholderTextColor="#d8e7ff" placeholder="Your Height (cm)" keyboardType="phone-pad" style={styles.input}
           onChangeText={(height) => this.setState({
             ...this.state,
             height
@@ -97,29 +97,35 @@ export default class Home extends React.Component {
           <Select
             onSelect = {this.onSelectGender.bind(this)}
             defaultText={this.state.value}
+            textStyle={{color: 'white'}}
             style = {{margin: 8, padding: 10, width: '90%', alignSelf: 'center', borderBottomWidth: 1}}
-            backdropStyle  = {{backgroundColor : "#d3d5d6"}}
-            optionListStyle = {{backgroundColor : "#F5FCFF", height: 80}}
+            transparent={true}
+            indicator="down"
+            indicatorColor="white"
+            optionListStyle = {{backgroundColor : "rgba(0, 0, 0, 0.8)", height: 80}}
           >
-            <Option value={"Male"}>Male</Option>
-            <Option value={"Female"}>Female</Option>
+            <Option styleText={{color: 'white'}} value={"Male"}>Male</Option>
+            <Option styleText={{color: 'white'}} value={"Female"}>Female</Option>
           </Select>
 
           <Select
             onSelect = {this.onSelectActivity.bind(this)}
             defaultText={this.state.valueActivity}
+            textStyle={{color: 'white'}}
             style = {{margin: 8, padding: 10, width: '90%', alignSelf: 'center', borderBottomWidth: 1}}
-            backdropStyle = {{backgroundColor : "#d3d5d6"}}
-            optionListStyle = {{backgroundColor : "#F5FCFF", height: 200}}
+            transparent={true}
+            indicator="down"
+            indicatorColor="white"
+            optionListStyle = {{backgroundColor : "rgba(0, 0, 0, 0.8)", height: 200}}
           >
-            <Option value={"1.2"}>Sedentary</Option>
-            <Option value={"1.375"}>Lightly</Option>
-            <Option value={"1.55"}>Active</Option>
-            <Option value={"1.725"}>Very Active</Option>
-            <Option value={"1.9"}>Extreme</Option>
+            <Option styleText={{color: 'white'}} value={"1.2"}>Sedentary</Option>
+            <Option styleText={{color: 'white'}} value={"1.375"}>Lightly</Option>
+            <Option styleText={{color: 'white'}} value={"1.55"}>Active</Option>
+            <Option styleText={{color: 'white'}} value={"1.725"}>Very Active</Option>
+            <Option styleText={{color: 'white'}} value={"1.9"}>Extreme</Option>
           </Select>
 
-          <TextInput placeholder="Weight Target" keyboardType="default" style={styles.input}
+          <TextInput placeholderTextColor="#d8e7ff" placeholder="Weight Target" keyboardType="phone-pad" style={styles.input}
           onChangeText={(weightTarget) => this.setState({
             ...this.state,
             weightTarget
@@ -146,7 +152,9 @@ const styles = StyleSheet.create({
     width: '90%',
     height: 40,
     margin: 8,
-    padding: 10
+    padding: 10,
+    color: 'white',
+    fontWeight: 'bold'
   },
   wrap: {
     width: '100%',
