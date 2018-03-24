@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   two: {
-    backgroundColor: '#6dbbff',
+    backgroundColor: '#a0d1ff',
     borderBottomWidth: 5,
     borderBottomColor: 'white',
     flex: 1,
