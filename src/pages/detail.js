@@ -163,8 +163,7 @@ const styles = StyleSheet.create({
   },
   desc: {
     marginLeft: 1,
-    fontSize: 18,
-    fontWeight: 'bold'
+    fontSize: 18
   },
   delete: {
     alignSelf: 'center',

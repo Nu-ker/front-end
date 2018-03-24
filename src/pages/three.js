@@ -21,13 +21,12 @@ class Three extends Component {
     this.props.logOut()
   }
 
-  //data.photoUrl
   render() {
     const { navigate } = this.props.navigation;
     const { data, error, loading } = this.props.stateNucare
     return (
       <View style={styles.container}>
-        <ImageBackground source={{uri : 'https://i.pinimg.com/originals/24/fb/c2/24fbc25e1c64ffcac48baf3c50e8c61f.jpg'}} style={styles.profilePicture}>
+        <ImageBackground source={require('../assets/profileimg.jpg')} style={styles.profilePicture}>
           <Image style={styles.circle} source={{uri: data.photoUrl}}>
           </Image>
         </ImageBackground>
@@ -126,7 +125,8 @@ const styles = StyleSheet.create({
     width: '40%',
     height: '85%',
     backgroundColor: 'lightblue',
-    borderRadius: 75
+    borderWidth: 1,
+    borderColor: 'white'
   },
   bio: {
     padding: 10,
@@ -142,8 +142,7 @@ const styles = StyleSheet.create({
   },
   desc: {
     marginLeft: 1,
-    fontSize: 18,
-    fontWeight: 'bold'
+    fontSize: 18
   },
   tombolEdit: {
     alignSelf: 'center',
