@@ -19,9 +19,6 @@
     "android": {
       "package": "com.sample.sample",
       "permissions":[ "CAMERA" ]
-    },
-    "splash":{
-      "image": "http://images.mobile-patterns.com/1418337663850-2014-12-11%2015.16.39.png"
     }
   }
 }

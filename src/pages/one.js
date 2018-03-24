@@ -41,7 +41,6 @@ class One extends Component {
           date: moment().format('MMMM-DD-YYYY')
         }
       })
-      self.props.setInit()
     })
   }
 
@@ -71,43 +70,7 @@ class One extends Component {
   render() {
     const { loading , error , data } = this.props.stateNucare
     const { navigate } = this.props.navigation;
-    if(loading){
-      return (
-        <View style={styles.container}>
-        <View style={styles.one}>
-          <View style={styles.left}>
-            <TouchableOpacity onPress={() => this.back()}>
-              <Ionicons style={{textAlign: 'right'}} name="ios-arrow-back-outline" color="white" size={40}></Ionicons>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.date}>
-              <Text style={{fontWeight: 'bold', color: 'white', textAlign: 'center', fontSize: 18, marginTop: 8}}>
-                <Animatable.Text animation="flipInX">
-                  {this.state.tanggal}
-                </Animatable.Text>
-              </Text>
-          </View>
-
-          <View style={styles.right}>
-            <TouchableOpacity onPress={() => this.forward()}>
-              <Ionicons style={{textAlign: 'left'}} name="ios-arrow-forward-outline" color="white" size={40}></Ionicons>
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        <View style={styles.two}>
-          <View style={styles.wrapper}>
-            <View style={styles.wrapperIn}>
-              <Animatable.Text animation="pulse" easing="ease-out" iterationCount="infinite" style={{ textAlign: 'center' }}>
-              <Text style={styles.calory}>2000</Text>
-              </Animatable.Text>
-              <Text style={styles.caloryRemaining}>Calories Remaining</Text>
-            </View>
-          </View>
-        </View>
-        </View>
-      )
-    }else if(error){
+    if(error){
       return (
         <View style={styles.container}>
         <Text style={styles.textImage}>{error}</Text>

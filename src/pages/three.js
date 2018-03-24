@@ -5,8 +5,11 @@ import { Ionicons } from '@expo/vector-icons';
 import {
   connect
 } from "react-redux";
+import {
+  bindActionCreators
+} from 'redux'
 import { NavigationActions } from 'react-navigation'
-
+import { logOut } from '../store/actions/auth'
 class Three extends Component {
   static navigationOptions = {
     title: 'Profile',
@@ -15,16 +18,13 @@ class Three extends Component {
     <Icon name="person" size={30} color={tintColor}/>
   }
   logout=()=>{
-    AsyncStorage.removeItem('uid',err=>{
-      console.log(err);
-    })
+    this.props.logOut()
   }
   render() {
     const { navigate } = this.props.navigation;
     const { data, error, loading } = this.props.stateNucare
     return (
       <View style={styles.container}>
-
         <ImageBackground source={{uri : data.photoUrl}} style={styles.profilePicture}>
           <View style={styles.circle}>
             <Ionicons name="md-person" size={110} style={{alignSelf: 'center', margin: 12}} color="azure"></Ionicons>
@@ -86,13 +86,14 @@ class Three extends Component {
               {data.activity}
             </Text>
           </View>
-
+          <TouchableOpacity onPress={() => this.logout()} style={{ alignSelf: 'center', marginTop: 15, padding: 10, backgroundColor: 'lightblue', borderRadius: 5, width: '96%' }}>
+            <Text style={{textAlign: 'center', fontSize: 14, fontWeight: 'bold'}}>LogOut</Text>
+          </TouchableOpacity>
           <TouchableOpacity onPress={() => navigate('EditProfile',{
             user: data
           })} style={{ alignSelf: 'center', marginTop: 15, padding: 10, backgroundColor: 'lightblue', borderRadius: 5, width: '96%' }}>
             <Text style={{textAlign: 'center', fontSize: 14, fontWeight: 'bold'}}>Edit Profile</Text>
           </TouchableOpacity>
-
         </View>
       </View>
     );
@@ -137,7 +138,12 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state, props) => ({
   stateNucare: state.Nucare,
 })
-
+const mapDispacthToProps = (dispatch) => (
+  bindActionCreators({
+      logOut
+  }, dispatch)
+  )
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispacthToProps
 )(Three)
