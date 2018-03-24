@@ -8,7 +8,8 @@ import {
   Text, 
   StyleSheet, 
   Button,
-  AsyncStorage
+  AsyncStorage,
+  ActivityIndicator
 } from 'react-native';
 import {
   bindActionCreators
@@ -22,9 +23,10 @@ import { Ionicons } from '@expo/vector-icons';
 import moment from 'moment'
 import * as Animatable from 'react-native-animatable';
 import { db } from '../firebase'
-import { setInit } from '../store/actions/nucare'
+import { setInitAuth } from '../store/actions/auth'
 import axios from 'axios'
-
+import LoadingPage from '../components/LoadingPage'
+import ErrorPage from '../components/ErrorPage'
 class One extends Component {
   constructor () {
     super()
@@ -41,6 +43,9 @@ class One extends Component {
           date: moment().format('MMMM-DD-YYYY')
         }
       })
+      if(!self.props.stateNucare.data){
+        self.props.setInitAuth()
+      }
     })
   }
 
@@ -70,12 +75,10 @@ class One extends Component {
   render() {
     const { loading , error , data } = this.props.stateNucare
     const { navigate } = this.props.navigation;
-    if(error){
-      return (
-        <View style={styles.container}>
-        <Text style={styles.textImage}>{error}</Text>
-        </View>
-      )
+    if(!data){
+      return <LoadingPage/>
+    }else if(error){
+      return <ErrorPage error={error}/>
     }else{
     return (
       <View style={styles.container}>
@@ -253,7 +256,7 @@ const mapStateToProps = (state, props) => ({
 })
 const mapDispacthToProps = (dispatch) => (
   bindActionCreators({
-    setInit
+    setInitAuth
   }, dispatch)
 )
 

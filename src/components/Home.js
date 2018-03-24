@@ -14,6 +14,7 @@ import * as Animatable from 'react-native-animatable';
 import { Ionicons } from '@expo/vector-icons';
 import axios from 'axios'
 import Expo from "expo"
+import LoadingPage from './LoadingPage'
 const androidClientId = "174374570388-iv0u513o3haajik2k3414emc6jquo2at.apps.googleusercontent.com"
 const iosClientId= "174374570388-3dvqr4m4n0qau2bh5oamm4bok894qttf.apps.googleusercontent.com"
 export default class Home extends React.Component {
@@ -67,27 +68,7 @@ export default class Home extends React.Component {
   }
   render () {
     if(this.state.loading){
-      return (
-        <ImageBackground style={styles.back} source={require('../assets/tes.jpg')}>
-          <View>
-            <Image style={styles.logo} source={require('../assets/logo.png')}></Image>
-            <Text style={styles.figure}>
-              An App For Your Health
-            </Text>
-          </View>
-          <View style={styles.container}> 
-          <ActivityIndicator size="large" color="#424242" />    
-          </View>
-  
-          <Text style={styles.textIcon}>
-            <Ionicons name="logo-facebook" size={25} color="white" />
-            &nbsp;
-       <Ionicons name="logo-twitter" size={25} color="white" />
-            &nbsp;
-       <Ionicons name="logo-google" size={25} color="white" />
-          </Text>
-        </ImageBackground>
-      )
+      return <LoadingPage/>
     }else{
       return (
         <ImageBackground style={styles.back} source={require('../assets/tes.jpg')}>

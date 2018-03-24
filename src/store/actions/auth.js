@@ -9,6 +9,7 @@ import axios from 'axios';
 
 export function setInitAuth() {
     return (dispatch) =>{
+        dispatch(loading())
         AsyncStorage.getItem('uid',(err,result)=>{
             if(result){
                 db.ref('Users').child(result).on('value', snapshot=>{
@@ -23,6 +24,7 @@ export function setInitAuth() {
         })
     }
 }
+
 export function logOut() {
     return (dispatch) =>{
         AsyncStorage.removeItem('uid',(err)=>{

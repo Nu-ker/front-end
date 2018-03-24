@@ -17,6 +17,8 @@ import Expo from "expo"
 import Home from './Home'
 import Form from './Form'
 import DashBoard from './DashBoard'
+import LoadingPage from './LoadingPage'
+import ErrorPage from './ErrorPage'
 import { StackNavigator } from 'react-navigation'
 import {
     bindActionCreators
@@ -36,35 +38,9 @@ class Loading extends React.Component {
   render () {
       const { uid , loading , error } = this.props.stateAuth
     if(loading){
-      return (
-        <ImageBackground style={styles.back} source={require('../assets/tes.jpg')}>
-          <View>
-            <Image style={styles.logo} source={require('../assets/logo.png')}></Image>
-            <Text style={styles.figure}>
-              An App For Your Health
-            </Text>
-          </View>
-          <View style={styles.container}> 
-          <ActivityIndicator size="large" color="#424242" />    
-          </View>
-  
-          <Text style={styles.textIcon}>
-            <Ionicons name="logo-facebook" size={25} color="white" />
-            &nbsp;
-       <Ionicons name="logo-twitter" size={25} color="white" />
-            &nbsp;
-       <Ionicons name="logo-google" size={25} color="white" />
-          </Text>
-        </ImageBackground>
-      )
+      return <LoadingPage/>
     }else if(error){
-      return (
-        <View style={styles.container}> 
-          <Text>
-            {error}
-        </Text>
-        </View>
-      )
+      return <ErrorPage error={error}/>
     }else if(uid){
         return (
             <NaviD/>
