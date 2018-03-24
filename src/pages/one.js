@@ -128,7 +128,8 @@ class One extends Component {
               key={i}
               style={{width: '33%', padding: 5}}
               onPress={() => navigate('detail',{
-                food: key
+                food: key,
+                date: this.state.tanggal
               })}>
                 <ImageBackground style={styles.pic} source={{uri : key[1].photoUrl}}>
                   <Text style={styles.textImage}>{key[1].calories} Kcal</Text>

@@ -10,15 +10,38 @@ import {
   TouchableOpacity,
   Image,
   ImageBackground,
-  ActivityIndicator
+  ActivityIndicator,
+  AsyncStorage
 } from 'react-native';
-
+import moment from 'moment'
+import { db } from '../firebase'
 export default class Detail extends Component {
   static navigationOptions = {
     title: 'Detail',
     tabBarLabel: 'Dashboard',
     tabBarIcon: ({ tintColor }) =>
       <Icon name="home" size={30} color={tintColor} />
+  }
+  destroy=()=>{
+    let self = this
+    AsyncStorage.getItem('uid',(err,result)=>{
+      if(result){
+        console.log(self.props.navigation.state.params.food[0]);
+        db.ref('Users').child(result).child('dates/'+moment().format('MMMM-DD-YYYY')+'/foods/'+self.props.navigation.state.params.food[0]).set(null)
+        self.props.navigation.goBack()
+      }
+    })
+  }
+  checkDate=()=>{
+    if(this.props.navigation.state.params.date === moment().format('MMMM-DD-YYYY')){
+      return(
+        <TouchableOpacity 
+        onPress={()=>this.destroy()}
+        style={styles.delete}>
+          <Text style={{textAlign: 'center', fontSize: 14, fontWeight: 'bold'}}>Delete</Text>
+        </TouchableOpacity>
+      )
+    }
   }
   render() {
     const { food } = this.props.navigation.state.params
@@ -108,13 +131,9 @@ export default class Detail extends Component {
                     {food[1].protein}
                   </Text>
                 </View>
-
-                <TouchableOpacity style={styles.delete}>
-                  <Text style={{textAlign: 'center', fontSize: 14, fontWeight: 'bold'}}>Delete</Text>
-                </TouchableOpacity>
+              {this.checkDate()}
               </ScrollView>
               </View>
-
           </View>
         </View>
       </View>
