@@ -2,6 +2,7 @@ import Expo from 'expo';
 import React, { Component } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { Icon } from 'react-native-elements';
+import * as Animatable from 'react-native-animatable';
 import {
   StyleSheet,
   Text,
@@ -36,24 +37,30 @@ export default class Detail extends Component {
 
               <View style={styles.profileDetail}>
                 <ScrollView>
-                <View style={styles.bio}>
-                  <Text style={styles.desc}>
-                    Food Name :
-                  </Text>
-                  <Text style={styles.desc}>
-                    {food[1].name}
-                  </Text>
-                </View>
 
-                <View style={styles.bio}>
-                  <Text style={styles.desc}>
-                    Calorie :
-                  </Text>
-                  <Text style={styles.desc}>
-                    {food[1].calories}
-                  </Text>
-                </View>
+                <Animatable.View animation="bounceIn">
+                  <View style={styles.bio}>
+                    <Text style={styles.desc}>
+                      Food Name :
+                    </Text>
+                    <Text style={styles.desc}>
+                      {food[1].name}
+                    </Text>
+                  </View>
+                </Animatable.View>
 
+                <Animatable.View animation="bounceIn">
+                  <View style={styles.bio}>
+                    <Text style={styles.desc}>
+                      Calorie :
+                    </Text>
+                    <Text style={styles.desc}>
+                      {food[1].calories}
+                    </Text>
+                  </View>
+                </Animatable.View>
+
+              <Animatable.View animation="bounceIn">
                 <View style={styles.bio}>
                   <Text style={styles.desc}>
                     Total Fat :
@@ -62,7 +69,9 @@ export default class Detail extends Component {
                     {food[1].total_fat}
                   </Text>
                 </View>
+              </Animatable.View>
 
+              <Animatable.View animation="bounceIn">
                 <View style={styles.bio}>
                   <Text style={styles.desc}>
                     Saturated Fat :
@@ -71,7 +80,9 @@ export default class Detail extends Component {
                     {food[1].saturated_fat}
                   </Text>
                 </View>
+              </Animatable.View>
 
+              <Animatable.View animation="bounceIn">
                 <View style={styles.bio}>
                   <Text style={styles.desc}>
                     Cholestrol :
@@ -80,7 +91,9 @@ export default class Detail extends Component {
                     {food[1].cholesterol}
                   </Text>
                 </View>
+              </Animatable.View>
 
+              <Animatable.View animation="bounceIn">
                 <View style={styles.bio}>
                   <Text style={styles.desc}>
                     Total Carbohydrate :
@@ -89,7 +102,9 @@ export default class Detail extends Component {
                     {food[1].total_carbohydrate}
                   </Text>
                 </View>
+              </Animatable.View>
 
+              <Animatable.View animation="bounceIn">
                 <View style={styles.bio}>
                   <Text style={styles.desc}>
                     Sugars :
@@ -98,7 +113,9 @@ export default class Detail extends Component {
                     {food[1].sugars}
                   </Text>
                 </View>
+              </Animatable.View>
 
+              <Animatable.View animation="bounceIn">
                 <View style={styles.bio}>
                   <Text style={styles.desc}>
                     Protein :
@@ -107,6 +124,7 @@ export default class Detail extends Component {
                     {food[1].protein}
                   </Text>
                 </View>
+              </Animatable.View>
 
                 <TouchableOpacity style={styles.delete}>
                   <Text style={{textAlign: 'center', fontSize: 14, fontWeight: 'bold'}}>Delete</Text>
