@@ -39,22 +39,42 @@ export default class AR extends React.Component {
     );
          
     // Rotating cube
+    const fontJson = require( "./three_fonts/neue_haas_unica_pro_black.json" );
+    const font = new THREE.Font( fontJson );
+
     const cube = new THREE.Mesh(
-      new THREE.BoxGeometry(0.07, 0.07, 0.07),
-      new THREE.MeshBasicMaterial({
-        map: await ExpoTHREE.createTextureAsync({
-          asset: Expo.Asset.fromModule(require('../assets/icons/app-icon.png')),
-        }),
-      })
-    );   
-    cube.position.z = -0.4;
+      // new THREE.BoxGeometry(0.07, 0.07, 0.07),
+      // new THREE.MeshBasicMaterial({
+      //   map: await ExpoTHREE.createTextureAsync({
+      //     asset: Expo.Asset.fromModule(require('../assets/icons/app-icon.png')),
+      //   }),
+      // })   
+
+      new THREE.TextGeometry("Hello, World!", 
+      {                        
+        font: font,        
+        size: 10, //Size of the text. Default is 100.
+        height: 5, //Thickness to extrude text. Default is 50.
+        curveSegments: 12, // — Integer. Number of points on the curves. Default is 12.
+        bevelEnabled: false, // — Boolean. Turn on bevel. Default is False.
+        bevelThickness: 1, // — Float. How deep into text bevel goes. Default is 10.
+        bevelSize: 0.8, // — Float. How far from text outline is bevel. Default is 8.
+        bevelSegments: 0.3, // — Integer. Number of bevel segments. Default is 3.
+      }      
+    ),
+      new THREE.MeshNormalMaterial({color: 0x00ff00})
+    );
+    
+    
+    
     scene.add(cube);    
+
 
     // Main loop
     const render = () => {
       // Rotate cube
-      cube.rotation.x += 0.07;
-      cube.rotation.y += 0.04;
+      // cube.rotation.x += 0.07;
+      // cube.rotation.y += 0.04;
 
       // Render scene!
       renderer.render(scene, camera);
