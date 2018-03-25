@@ -16,6 +16,7 @@ import {
 } from 'react-native';
 import moment from 'moment'
 import { db } from '../firebase'
+import axios from 'axios'
 export default class Detail extends Component {
   static navigationOptions = {
     title: 'Detail',
@@ -28,8 +29,14 @@ export default class Detail extends Component {
     AsyncStorage.getItem('uid',(err,result)=>{
       if(result){
         console.log(self.props.navigation.state.params.food[0]);
-        db.ref('Users').child(result).child('dates/'+moment().format('MMMM-DD-YYYY')+'/foods/'+self.props.navigation.state.params.food[0]).set(null)
-        self.props.navigation.goBack()
+        axios.delete("https://us-central1-nu-ker-fox.cloudfunctions.net/Food",{
+          headers: {
+            uid:uid,
+            foodid:self.props.navigation.state.params.food[0]
+          }
+        }).then(()=>{
+          self.props.navigation.goBack()
+        })
       }
     })
   }
