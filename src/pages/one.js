@@ -75,7 +75,7 @@ class One extends Component {
   render() {
     const { loading , error , data } = this.props.stateNucare
     const { navigate } = this.props.navigation;
-    if(!data){
+    if(!data || !data.dates[moment().format('MMMM-DD-YYYY')]){
       return <LoadingPage/>
     }else if(error){
       return <ErrorPage error={error}/>
