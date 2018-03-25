@@ -1,7 +1,10 @@
+console.disableYellowBox = true
+console.disableYellowBox = true
 import React from 'react';
 import { findNodeHandle, NativeModules, Platform } from 'react-native';
 import * as THREE from 'three';
 import ExpoTHREE from 'expo-three';
+import AssetUtils from 'expo-asset-utils';
 
 export default class AR extends React.Component {
   render() {
@@ -9,7 +12,7 @@ export default class AR extends React.Component {
       <Expo.GLView
         nativeRef_EXPERIMENTAL={this._setNativeGLView}
         style={{ flex: 1 }}
-        onContextCreate={this._onGLContextCreate}        
+        onContextCreate={this._onGLContextCreate}
       />
     )
   };
@@ -37,78 +40,58 @@ export default class AR extends React.Component {
       0.01,
       1000
     );
-         
-    // Rotating cube
-    const fontJson = require( "./three_fonts/neue_haas_unica_pro_black.json" );
-    const font = new THREE.Font( fontJson );
+    //================================================//
 
-    const cube = new THREE.Mesh(
-      // new THREE.BoxGeometry(0.07, 0.07, 0.07),
-      // new THREE.MeshBasicMaterial({
-      //   map: await ExpoTHREE.createTextureAsync({
-      //     asset: Expo.Asset.fromModule(require('../assets/icons/app-icon.png')),
-      //   }),
-      // })   
+    // const cube = new THREE.Mesh(
+    //   new THREE.BoxGeometry(0.17, 0.07, 0.07),
+    //   new THREE.MeshBasicMaterial({
+    //     map: await ExpoTHREE.createTextureAsync({
+    //       asset: Expo.Asset.fromModule(require('../assets/sample.jpg'))
+    //     }),
+    //   })
+    // );
 
-      new THREE.TextGeometry("Hello, World!", 
-      {                        
-        font: font,        
-        size: 10, //Size of the text. Default is 100.
-        height: 5, //Thickness to extrude text. Default is 50.
-        curveSegments: 12, // — Integer. Number of points on the curves. Default is 12.
-        bevelEnabled: false, // — Boolean. Turn on bevel. Default is False.
-        bevelThickness: 1, // — Float. How deep into text bevel goes. Default is 10.
-        bevelSize: 0.8, // — Float. How far from text outline is bevel. Default is 8.
-        bevelSegments: 0.3, // — Integer. Number of bevel segments. Default is 3.
-      }      
-    ),
-      new THREE.MeshNormalMaterial({color: 0x00ff00})
-    );
-    
-    
-    
-    scene.add(cube);    
+    var image = new Image();
+    image.src = "data:image/jpeg;base64";
 
+    var texture = new THREE.Texture();
+    texture.image = image;
+    image.onload = function () {
+      texture.needsUpdate = true;
+    };
+    var material = new THREE.MeshLambertMaterial({ color: 0x00aa00, map: texture });
+    var geometry = new THREE.BoxGeometry(1, 1, 1);
+    var cube = new THREE.Mesh(geometry, material);
+
+    //================================================//
+    // add to scene
+    scene.add(cube);
+    cube.position.z = -0.4;
+
+    scene.add(new THREE.HemisphereLight(0xaaaaaa, 0x333333));
+    var keyLight = new THREE.PointLight(0xaaaaaa);
+    keyLight.position.x = 15;
+    keyLight.position.y = -10;
+    keyLight.position.z = 35;
+    scene.add(keyLight);
+
+    var rimLight = new THREE.PointLight(0x888888);
+    rimLight.position.x = 100;
+    rimLight.position.y = 100;
+    rimLight.position.z = -50;
+    scene.add(rimLight);
+
+    camera.position.z = 2;
 
     // Main loop
     const render = () => {
-      // Rotate cube
-      // cube.rotation.x += 0.07;
-      // cube.rotation.y += 0.04;
-
-      // Render scene!
-      renderer.render(scene, camera);
-
-      // End and schedule another frame
+      cube.rotation.x += 0.01;
+      cube.rotation.y += 0.02;
       gl.endFrameEXP();
       requestAnimationFrame(render);
+      renderer.render(scene, camera);      
     };
-        
-
     render();
   };
-
 }
 
-
-// var loader = new THREE.FontLoader();
-    // loader.load( 'https://thefortcity.dev/build/fonts/FontAwesome_Regular.json', function (font) {
-    // var textGeometry = new THREE.TextGeometry( "   ", {
-    //     font: font,
-    //     size: 50,
-    //     height: 10,
-    //     curveSegments: 12,
-    //     bevelThickness: 1,
-    //     bevelSize: 1,
-    //     bevelEnabled: true
-    // });
-
-    // var textMaterial = new THREE.MeshPhongMaterial( 
-    //     { color: 0xff0000, specular: 0xffffff }
-    // );
-
-    // var mesh = new THREE.Mesh(textGeometry, textMaterial);
-    // mesh.position.z = -0.4;
-    // scene.add(mesh);
-    
-    // });   
