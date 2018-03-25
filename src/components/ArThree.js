@@ -1,92 +1,94 @@
-import ExpoGraphics from 'expo-graphics';
-import ExpoTHREE, { THREE } from 'expo-three';
 import React from 'react';
-import { Platform } from 'react-native';
+import { findNodeHandle, NativeModules, Platform } from 'react-native';
+import * as THREE from 'three';
+import ExpoTHREE from 'expo-three';
 
-export default class App extends React.Component {
-  componentWillMount() {
-    THREE.suppressExpoWarnings(true);
-  }
-  componentWillUnmount() {
-    THREE.suppressExpoWarnings(false);
-  }
-  onShouldReloadContext = () => {
-    /// The Android OS loses gl context on background, so we should reload it.
-    return Platform.OS === 'android';
-  };
-
+export default class AR extends React.Component {
   render() {
-    // Create an `ExpoGraphics.View` covering the whole screen, tell it to call our
-    // `onContextCreate` function once it's initialized.
     return (
-      <ExpoGraphics.View
-        onContextCreate={this.onContextCreate}
-        onRender={this.onRender}
-        onResize={this.onResize}
-        onShouldReloadContext={this.onShouldReloadContext}
-        arEnabled={false}
+      <Expo.GLView
+        nativeRef_EXPERIMENTAL={this._setNativeGLView}
+        style={{ flex: 1 }}
+        onContextCreate={this._onGLContextCreate}        
       />
+    )
+  };
+
+  _setNativeGLView = ref => {
+    this._nativeGLView = ref;
+  };
+
+  _onGLContextCreate = async gl => {
+    // Start AR session
+    const arSession = await NativeModules.ExponentGLViewManager.startARSessionAsync(
+      findNodeHandle(this._nativeGLView)
     );
-  }
 
-  // This is called by the `ExpoGraphics.View` once it's initialized
-  onContextCreate = async ({ gl, canvas, width, height, scale }) => {
-    this.renderer = ExpoTHREE.renderer({ gl, canvas });
-    this.renderer.setPixelRatio(scale);
-    this.renderer.setSize(width, height);
-    this.renderer.setClearColor(0x000000, 1.0);
-    this.scene = new THREE.Scene();
-    this.camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
-    this.camera.position.z = 5;
-    const geometry = new THREE.BoxGeometry(1, 1, 1);
-    const text = "hello world"
-    let map;
-    if (Platform.OS === 'web') {
-      map = require('../assets/icons/app-icon.png');
-    } else {
-      map = await ExpoTHREE.loadAsync(require('../assets/icons/app-icon.png'));
-    }
-    const material = new THREE.MeshBasicMaterial({
-      // NOTE: How to create an Expo-compatible THREE texture
-      map,
-    });
-    this.cube = new THREE.Mesh(geometry, material);
-    this.scene.add(this.cube);
+    // Initialize renderer, scene, camera
+    const renderer = ExpoTHREE.createRenderer({ gl });
+    renderer.setSize(gl.drawingBufferWidth, gl.drawingBufferHeight);
+    renderer.setClearColor(0x000000, 1);
+    const scene = new THREE.Scene();
+    scene.background = ExpoTHREE.createARBackgroundTexture(arSession, renderer);
+    const camera = ExpoTHREE.createARCamera(
+      arSession,
+      gl.drawingBufferWidth,
+      gl.drawingBufferHeight,
+      0.01,
+      1000
+    );
+         
+    // Rotating cube
+    const cube = new THREE.Mesh(
+      new THREE.BoxGeometry(0.07, 0.07, 0.07),
+      new THREE.MeshBasicMaterial({
+        map: await ExpoTHREE.createTextureAsync({
+          asset: Expo.Asset.fromModule(require('../assets/icons/app-icon.png')),
+        }),
+      })
+    );   
+    cube.position.z = -0.4;
+    scene.add(cube);    
+
+    // Main loop
+    const render = () => {
+      // Rotate cube
+      cube.rotation.x += 0.07;
+      cube.rotation.y += 0.04;
+
+      // Render scene!
+      renderer.render(scene, camera);
+
+      // End and schedule another frame
+      gl.endFrameEXP();
+      requestAnimationFrame(render);
+    };
+        
+
+    render();
   };
 
-  // onResize = ({ width, height, scale }) => {
-  //   this.camera.aspect = width / height;
-  //   this.camera.updateProjectionMatrix();
-  //   this.renderer.setPixelRatio(scale);
-  //   this.renderer.setSize(width, height);
-  // };
-
-  // onRender = delta => {
-  //   this.cube.rotation.x += 3.5 * delta;
-  //   this.cube.rotation.y += 2 * delta;
-  //   this.renderer.render(this.scene, this.camera);
-  // };
-
-  onResize = ({ width, height, scale }) => {
-    this.camera.aspect = width / height;
-    this.camera.updateProjectionMatrix();
-    this.renderer.setPixelRatio(scale);
-    this.renderer.setSize(width, height);
-  };
-
-  onRender = delta => {
-    this.scene.rotation.y -= 0.5 * delta;
-    this.renderer.render(this.scene, this.camera);
-  };
-
-  setupLights = () => {
-    let light = new THREE.DirectionalLight(0xffffff, 0.8);
-    light.position.set(0, 0, -1);
-    this.scene.add(light);
-    let lighta = new THREE.PointLight(0xffffff, 1.5);
-    lighta.position.set(0, 100, 90);
-    this.scene.add(lighta);
-  };
-
-  
 }
+
+
+// var loader = new THREE.FontLoader();
+    // loader.load( 'https://thefortcity.dev/build/fonts/FontAwesome_Regular.json', function (font) {
+    // var textGeometry = new THREE.TextGeometry( "   ", {
+    //     font: font,
+    //     size: 50,
+    //     height: 10,
+    //     curveSegments: 12,
+    //     bevelThickness: 1,
+    //     bevelSize: 1,
+    //     bevelEnabled: true
+    // });
+
+    // var textMaterial = new THREE.MeshPhongMaterial( 
+    //     { color: 0xff0000, specular: 0xffffff }
+    // );
+
+    // var mesh = new THREE.Mesh(textGeometry, textMaterial);
+    // mesh.position.z = -0.4;
+    // scene.add(mesh);
+    
+    // });   

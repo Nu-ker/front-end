@@ -19,6 +19,7 @@ import Form from './Form'
 import DashBoard from './DashBoard'
 import LoadingPage from './LoadingPage'
 import ErrorPage from './ErrorPage'
+import AR from './ArThree'
 import { StackNavigator } from 'react-navigation'
 import {
     bindActionCreators
@@ -33,6 +34,11 @@ class Loading extends React.Component {
     super()
   }
   componentWillMount(){
+    AsyncStorage.removeItem('uid',err=>{
+      if(err){
+        console.log(err)
+      }
+    })
     this.props.setInitAuth()
   }
   render () {
@@ -47,7 +53,8 @@ class Loading extends React.Component {
         )
     }else{
         return (
-          <Navi/>
+          // <Navi/>
+          <AR/>
         )
     }
   }
