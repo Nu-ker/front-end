@@ -1,16 +1,37 @@
+console.disableYellowBox = true
 import React from 'react';
-import { findNodeHandle, NativeModules, Platform } from 'react-native';
-import * as THREE from 'three';
+import { findNodeHandle, NativeModules, Platform, View } from 'react-native';
 import ExpoTHREE from 'expo-three';
+import * as THREE from 'three';
 
 export default class AR extends React.Component {
+  constructor() {
+    super()    
+    this.state={
+      text:`description
+      name:
+      calories:
+      total fat:
+      cholesterol:
+      total carbohydrate:
+      sugars:
+      protein:
+      image url:`
+    }
+    
+  }
+  static navigationOptions = {
+    title: 'Back',
+    tabBarLabel: 'Dashboard',        
+  }
+  
   render() {
-    return (
+    return (      
       <Expo.GLView
         nativeRef_EXPERIMENTAL={this._setNativeGLView}
         style={{ flex: 1 }}
         onContextCreate={this._onGLContextCreate}        
-      />
+      />      
     )
   };
 
@@ -20,6 +41,7 @@ export default class AR extends React.Component {
 
   _onGLContextCreate = async gl => {
     // Start AR session
+    var self = this
     const arSession = await NativeModules.ExponentGLViewManager.startARSessionAsync(
       findNodeHandle(this._nativeGLView)
     );
@@ -37,58 +59,49 @@ export default class AR extends React.Component {
       0.01,
       1000
     );
+    // camera.position.x = 40
+    // camera.position.y = 40
+    // camera.position.z = 40
          
-    // Rotating cube
-    const cube = new THREE.Mesh(
-      new THREE.BoxGeometry(0.07, 0.07, 0.07),
-      new THREE.MeshBasicMaterial({
-        map: await ExpoTHREE.createTextureAsync({
-          asset: Expo.Asset.fromModule(require('../assets/icons/app-icon.png')),
-        }),
-      })
-    );   
-    cube.position.z = -0.4;
-    scene.add(cube);    
+    // Load font
+    const fontJson = require( "../assets/fonts/three_fonts/neue_haas_unica_pro_medium.json" );
+    const font = new THREE.Font( fontJson );
 
+    const text = new THREE.Mesh(      
+      new THREE.TextGeometry(self.state.text, 
+      {                        
+        font: font,        
+        size: 3, //Size of the text. Default is 100.
+        height: 1, //Thickness to extrude text. Default is 50.
+        // curveSegments: 12, // — Integer. Number of points on the curves. Default is 12.
+        // bevelEnabled: false, // — Boolean. Turn on bevel. Default is False.
+        // bevelThickness: 10, // — Float. How deep into text bevel goes. Default is 10.
+        // bevelSize: 0.5, // — Float. How far from text outline is bevel. Default is 8.
+        // bevelSegments: 0.3, // — Integer. Number of bevel segments. Default is 3.
+      }),    
+      // new THREE.MeshNormalMaterial({ 
+      //   color: 0x000000, specular: 0x000000,opacity: 0.5, transparent: true,overdraw: 0.5
+      // })      
+    );
+
+    scene.add(text);  
+    material = new THREE.MeshBasicMaterial()  
+    text.material.color.setHex(0xffffff)
+    
+    text.position.x = -20;
+    text.position.z = -100;
+    text.position.y = -5;
+    
+  
     // Main loop
-    const render = () => {
-      // Rotate cube
-      cube.rotation.x += 0.07;
-      cube.rotation.y += 0.04;
-
+    const render = () => {            
       // Render scene!
       renderer.render(scene, camera);
 
       // End and schedule another frame
       gl.endFrameEXP();
       requestAnimationFrame(render);
-    };
-        
-
+    };        
     render();
   };
-
 }
-
-
-// var loader = new THREE.FontLoader();
-    // loader.load( 'https://thefortcity.dev/build/fonts/FontAwesome_Regular.json', function (font) {
-    // var textGeometry = new THREE.TextGeometry( "   ", {
-    //     font: font,
-    //     size: 50,
-    //     height: 10,
-    //     curveSegments: 12,
-    //     bevelThickness: 1,
-    //     bevelSize: 1,
-    //     bevelEnabled: true
-    // });
-
-    // var textMaterial = new THREE.MeshPhongMaterial( 
-    //     { color: 0xff0000, specular: 0xffffff }
-    // );
-
-    // var mesh = new THREE.Mesh(textGeometry, textMaterial);
-    // mesh.position.z = -0.4;
-    // scene.add(mesh);
-    
-    // });   
