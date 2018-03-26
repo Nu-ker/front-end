@@ -6,19 +6,7 @@ import * as THREE from 'three';
 
 export default class AR extends React.Component {
   constructor() {
-    super()
-    // text:{
-    //   text:`des 
-    //   name:
-    //   calories:
-    //   total fat:
-    //   cholesterol:
-    //   total carbohydrate
-    //   sugars:
-    //   protein:
-    //   image url:
-    //   `
-    // },      
+    super()    
     this.state={
       text:`description
       name:
@@ -30,7 +18,13 @@ export default class AR extends React.Component {
       protein:
       image url:`
     }
+    
   }
+  static navigationOptions = {
+    title: 'Back',
+    tabBarLabel: 'Dashboard',        
+  }
+  
   render() {
     return (      
       <Expo.GLView
