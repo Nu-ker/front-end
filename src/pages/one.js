@@ -119,6 +119,7 @@ class One extends Component {
             </View>
           </View>
         </View>
+
         <ScrollView style={{backgroundColor: 'white', margin: 7, width: '97%'}}>
           <Text style={styles.today}>Today's Consumption</Text>
           <View style={styles.three}>
@@ -206,11 +207,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   wrapper: {
-    width: '50%',
-    height: '73%',
+    width: 200,
+    height: 200,
     backgroundColor: 'white',
     justifyContent: 'center',
-    borderRadius: 100,
+    borderRadius: 200/2,
     alignSelf: 'center'
   },
   wrapperIn: {
