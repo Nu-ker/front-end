@@ -17,6 +17,7 @@ import Expo from "expo"
 import Home from './Home'
 import Form from './Form'
 import DashBoard from './DashBoard'
+import ListLabel from './ListLabel'
 import LoadingPage from './LoadingPage'
 import ErrorPage from './ErrorPage'
 import AR from './ArThree'
@@ -84,7 +85,7 @@ const Navi = StackNavigator({
   }
 )
 const NaviD = StackNavigator({
-    DashBoard: {
+  DashBoard: {
       screen: DashBoard,
       navigationOptions: {
         header: null

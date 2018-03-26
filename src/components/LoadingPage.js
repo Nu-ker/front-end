@@ -15,6 +15,9 @@ import { Ionicons } from '@expo/vector-icons';
 import Expo from "expo"
 
 export default  class Loading extends React.Component {
+  constructor() {
+    super()
+  }
   render () {
       return (
         <ImageBackground style={styles.back} source={require('../assets/tes.jpg')}>
