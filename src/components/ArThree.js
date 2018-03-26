@@ -8,21 +8,13 @@ export default class AR extends React.Component {
   constructor() {
     super()    
     this.state={
-      text:`description
-      name:
-      calories:
-      total fat:
-      cholesterol:
-      total carbohydrate:
-      sugars:
-      protein:
-      image url:`
+      
     }
     
   }
   static navigationOptions = {
     title: 'Back',
-    tabBarLabel: 'Dashboard',        
+    tabBarLabel: 'AR',        
   }
   
   render() {
@@ -40,7 +32,6 @@ export default class AR extends React.Component {
   };
 
   _onGLContextCreate = async gl => {
-    // Start AR session
     var self = this
     const arSession = await NativeModules.ExponentGLViewManager.startARSessionAsync(
       findNodeHandle(this._nativeGLView)
@@ -59,29 +50,26 @@ export default class AR extends React.Component {
       0.01,
       1000
     );
-    // camera.position.x = 40
-    // camera.position.y = 40
-    // camera.position.z = 40
-         
+    const { name, calories ,cholesterol, total_fat,saturated_fa, total_carbohydrate, sugars , protein } = this.props.navigation.state.params.nutritions
+    var textSample=`description
+    name: ${name}
+    calories: ${calories}
+    total fat: ${total_fat}
+    cholesterol: ${cholesterol}
+    total carbohydrate: ${total_carbohydrate}
+    sugars: ${sugars}
+    protein: ${protein}`
     // Load font
     const fontJson = require( "../assets/fonts/three_fonts/neue_haas_unica_pro_medium.json" );
     const font = new THREE.Font( fontJson );
 
     const text = new THREE.Mesh(      
-      new THREE.TextGeometry(self.state.text, 
+      new THREE.TextGeometry(textSample, 
       {                        
         font: font,        
         size: 3, //Size of the text. Default is 100.
-        height: 1, //Thickness to extrude text. Default is 50.
-        // curveSegments: 12, // — Integer. Number of points on the curves. Default is 12.
-        // bevelEnabled: false, // — Boolean. Turn on bevel. Default is False.
-        // bevelThickness: 10, // — Float. How deep into text bevel goes. Default is 10.
-        // bevelSize: 0.5, // — Float. How far from text outline is bevel. Default is 8.
-        // bevelSegments: 0.3, // — Integer. Number of bevel segments. Default is 3.
+        height: 1, 
       }),    
-      // new THREE.MeshNormalMaterial({ 
-      //   color: 0x000000, specular: 0x000000,opacity: 0.5, transparent: true,overdraw: 0.5
-      // })      
     );
 
     scene.add(text);  

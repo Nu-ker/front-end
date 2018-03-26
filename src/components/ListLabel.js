@@ -13,6 +13,7 @@ export default class listLabel extends Component {
   _keyExtractor = (item, index) => item.name
 
   setModalVisible(item) {
+    console.log(item);
     let self = this
     axios.post('https://trackapi.nutritionix.com/v2/natural/nutrients',{
       query: item
@@ -24,7 +25,7 @@ export default class listLabel extends Component {
     })
     .then(({data})=>{
       let food = data.foods[0]
-      self.navigation.navigate('ArThree',{
+      self.props.navigation.navigate('ArThree',{
         nutritions: {
           name: item,
           calories: food.nf_calories || 0,

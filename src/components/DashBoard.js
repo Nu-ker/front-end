@@ -10,6 +10,7 @@ import Three from '../pages/three';
 import detail from '../pages/detail';
 import EditProfile from '../pages/EditProfile';
 import ListLabel from './ListLabel'
+import ArThree from './ArThree'
 
 export default class DashBoard extends Component {
   render() {
@@ -23,7 +24,8 @@ export default class DashBoard extends Component {
       two: {
         screen: StackNavigator({
           two: { screen: Two },
-          ListLabel: { screen: ListLabel }
+          ListLabel: { screen: ListLabel },
+          ArThree: { screen: ArThree }
         })
       },
       three: {
