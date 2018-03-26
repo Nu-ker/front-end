@@ -1,7 +1,6 @@
 import Expo from 'expo';
 import React from 'react';
 import { Ionicons } from '@expo/vector-icons';
-
 import {
   StyleSheet,
   Text,
