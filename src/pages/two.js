@@ -21,7 +21,7 @@ export default class Two extends Component {
     }
   }
   static navigationOptions = {
-    title: 'Two',
+    title: 'Back',
     header: null,
     tabBarLabel: 'Camera',
     headerTitleStyle: {
@@ -47,9 +47,9 @@ export default class Two extends Component {
               onPress={this._pickImage}>
               <Text style={{color: 'white', fontWeight: 'bold'}}>Take A Picture</Text>
             </TouchableOpacity>
-          </View> 
+          </View>
           ): (
-          <ActivityIndicator size="large" color="#424242" />    
+          <ActivityIndicator size="large" color="#424242" />
           ) }
         </View>
       </ImageBackground>
@@ -59,7 +59,7 @@ export default class Two extends Component {
     const {
       cancelled,
       uri,
-      base64      
+      base64
     } = await Expo.ImagePicker.launchCameraAsync({
       base64: true,
       quality : 0.1,

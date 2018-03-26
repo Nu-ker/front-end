@@ -75,7 +75,7 @@ class One extends Component {
   render() {
     const { loading , error , data } = this.props.stateNucare
     const { navigate } = this.props.navigation;
-    console.log(data);
+
     if(!data || !data.dates){
       return <LoadingPage/>
     }else if(error){

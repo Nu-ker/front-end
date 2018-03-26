@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   logo: {
-    marginTop: 30,
+    marginTop: 50,
     padding: 0,
     alignSelf: 'center'
   },
