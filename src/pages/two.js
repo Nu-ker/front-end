@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import { Icon } from 'react-native-elements';
-// import Camera from '../components/camera'
-import Camera from '../components/ArThree'
+import Camera from '../components/camera'
+// import Camera from '../components/ArThree'
 
 export default class Two extends Component {
   static navigationOptions = {

@@ -31,7 +31,7 @@ export default class Detail extends Component {
         console.log(self.props.navigation.state.params.food[0]);
         axios.delete("https://us-central1-nu-ker-fox.cloudfunctions.net/Food",{
           headers: {
-            uid:uid,
+            uid:result,
             foodid:self.props.navigation.state.params.food[0]
           }
         }).then(()=>{

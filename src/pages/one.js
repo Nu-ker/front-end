@@ -37,7 +37,7 @@ class One extends Component {
   componentWillMount = async ()=>{
     let self = this
     AsyncStorage.getItem('uid',(err,result)=>{
-      const dateCheck = axios.get('https://us-central1-nu-ker-fox.cloudfunctions.net/DateCheck',{
+      axios.get('https://us-central1-nu-ker-fox.cloudfunctions.net/DateCheck',{
         headers: {
           uid: result,
           date: moment().format('MMMM-DD-YYYY')
@@ -75,7 +75,8 @@ class One extends Component {
   render() {
     const { loading , error , data } = this.props.stateNucare
     const { navigate } = this.props.navigation;
-    if(!data || !data.dates[moment().format('MMMM-DD-YYYY')]){
+    console.log(data);
+    if(!data || !data.dates){
       return <LoadingPage/>
     }else if(error){
       return <ErrorPage error={error}/>

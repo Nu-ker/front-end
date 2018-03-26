@@ -43,6 +43,7 @@ class Loading extends React.Component {
   }
   render () {
       const { uid , loading , error } = this.props.stateAuth
+      const { data } = this.props.stateNucare
     if(loading){
       return <LoadingPage/>
     }else if(error){
@@ -53,8 +54,7 @@ class Loading extends React.Component {
         )
     }else{
         return (
-          // <Navi/>
-          <AR/>
+          <Navi/>
         )
     }
   }
@@ -143,6 +143,7 @@ const mapStateToProps = (state, props) => {
     console.log(state);
     return ({
         stateAuth: state.Auth,
+        stateNucare: state.Nucare
       })
 }
 const mapDispacthToProps = (dispatch) => (
