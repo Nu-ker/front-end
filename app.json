@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "sample",
+    "name": "nucare",
     "description": "The app to find the best renters.",
     "slug": "report-abuser-app",
     "icon": "https://w3bsite.online/services/fa/files/images/services/mobileapp.png",
@@ -10,23 +10,26 @@
     "packagerOpts": {
       "assetExts": [
         "ttf"
-      ]
+      ],
+      "nonPersistent": true
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.sample.sample",
+      "bundleIdentifier": "com.nucare.nucare",
+      "config":{
+        "googleSignIn":{
+          "reservedClientId":"174374570388-iv0u513o3haajik2k3414emc6jquo2at.apps.googleusercontent.com"
+        }
+      }
     },
     "android": {
-      "package": "com.sample.sample",
+      "package": "com.nucare.nucare",
       "permissions":[ "CAMERA", "ACCESS_FINE_LOCATION" ],
       "config":{
         "googleSignIn":{
           "apiKey": "174374570388-iv0u513o3haajik2k3414emc6jquo2at.apps.googleusercontent.com"
         }
       }
-    },
-    "packagerOpts": {
-      "nonPersistent": true
     }
   }
 }
