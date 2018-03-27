@@ -72,8 +72,8 @@ class One extends Component {
   render () {
     const { loading , error , data } = this.props.stateNucare
     const { navigate } = this.props.navigation;
-    console.log(data);
-    if(!data || !data.dates){
+
+    if(!data){
       return <LoadingPage/>
     }else if(error){
       return <ErrorPage error={error}/>
@@ -117,6 +117,7 @@ class One extends Component {
             </View>
           </View>
         </View>
+
         <ScrollView style={{backgroundColor: 'white', margin: 7, width: '97%'}}>
           <Text style={styles.today}>Today's Consumption</Text>
           <View style={styles.three}>

@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
   Image,
   ImageBackground,
+  Alert,
   ActivityIndicator,
   AsyncStorage
 } from 'react-native';
@@ -35,6 +36,7 @@ export default class Detail extends Component {
             foodid:self.props.navigation.state.params.food[0]
           }
         }).then(()=>{
+          Alert.alert('Success', 'Your Food has been deleted')
           self.props.navigation.goBack()
         })
       }
@@ -43,7 +45,7 @@ export default class Detail extends Component {
   checkDate=()=>{
     if(this.props.navigation.state.params.date === moment().format('MMMM-DD-YYYY')){
       return(
-        <TouchableOpacity 
+        <TouchableOpacity
         onPress={()=>this.destroy()}
         style={styles.delete}>
           <Text style={{textAlign: 'center', fontSize: 14, fontWeight: 'bold'}}>Delete</Text>
