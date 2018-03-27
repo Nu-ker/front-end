@@ -64,6 +64,10 @@ export default class AR extends React.Component {
     const { uid, base64, nutritions } = navigation.state.params
     console.log(nutritions);
     const name = 'Add +'
+    const resetAction = NavigationActions.reset({
+        index: 0,
+        actions: [NavigationActions.navigate({ routeName: 'two' })],
+      });
     return {
       title: name,
       headerRight:
@@ -85,9 +89,11 @@ export default class AR extends React.Component {
                     uid: uid
                   }
                 })
-            return navigation.navigate('one')
+            // return navigation.navigate('one')
+            return navigation.dispatch(resetAction)
           }
           }
+
         />
     }
   }
@@ -125,14 +131,15 @@ export default class AR extends React.Component {
       1000
     );
     const { name, calories ,cholesterol, total_fat,saturated_fa, total_carbohydrate, sugars , protein } = this.props.navigation.state.params.nutritions
-    var textSample=`description
-    name: ${name}
-    calories: ${calories}
-    total fat: ${total_fat}
-    cholesterol: ${cholesterol}
-    total carbohydrate: ${total_carbohydrate}
-    sugars: ${sugars}
-    protein: ${protein}`
+    var textSample=`Food Description
+    Name: ${name}
+    Calories: ${calories}
+    Fat: ${total_fat}
+    Cholesterol: ${cholesterol}
+    Carbohydrate: ${total_carbohydrate}
+    Sugars: ${sugars}
+    Protein: ${protein}`
+
     // Load font
     const fontJson = require( "../assets/fonts/three_fonts/neue_haas_unica_pro_medium.json" );
     const font = new THREE.Font( fontJson );
@@ -141,19 +148,28 @@ export default class AR extends React.Component {
       new THREE.TextGeometry(textSample,
       {
         font: font,
-        size: 3, //Size of the text. Default is 100.
+        size: 3,
         height: 1,
       }),
     );
 
-    scene.add(text);
+    const cube = new THREE.Mesh(
+   new THREE.BoxGeometry(0.17, 0.07, 0.07),
+   new THREE.MeshBasicMaterial({
+     map: await ExpoTHREE.createTextureAsync({
+       asset: Expo.Asset.fromModule(require('../assets/tes.jpg'))
+     }),
+   })
+);
+
+    scene.add(text,cube);
+    cube.position.z = -0.4
     material = new THREE.MeshBasicMaterial()
     text.material.color.setHex(0xffffff)
 
     text.position.x = -20;
     text.position.z = -100;
     text.position.y = -5;
-
 
     // Main loop
     const render = () => {
