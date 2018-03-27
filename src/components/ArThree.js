@@ -15,7 +15,7 @@ const resetAction = NavigationActions.reset({
 });
 export default class AR extends React.Component {
   constructor() {
-    super()    
+    super()
     this.state={
       uid:null
     }
@@ -63,7 +63,7 @@ export default class AR extends React.Component {
   static navigationOptions = ({ navigation }) => {
     const { uid, base64, nutritions } = navigation.state.params
     console.log(nutritions);
-    const name = 'ADD'
+    const name = 'Add +'
     return {
       title: name,
       headerRight:
@@ -85,18 +85,18 @@ export default class AR extends React.Component {
                     uid: uid
                   }
                 })
-            return navigation.navigate('two')
+            return navigation.navigate('one')
           }
           }
         />
     }
   }
   render() {
-    return (    
+    return (
       <Expo.GLView
         nativeRef_EXPERIMENTAL={this._setNativeGLView}
         style={{ flex: 1 }}
-        onContextCreate={this._onGLContextCreate}        
+        onContextCreate={this._onGLContextCreate}
       />
     )
   };
@@ -137,33 +137,33 @@ export default class AR extends React.Component {
     const fontJson = require( "../assets/fonts/three_fonts/neue_haas_unica_pro_medium.json" );
     const font = new THREE.Font( fontJson );
 
-    const text = new THREE.Mesh(      
-      new THREE.TextGeometry(textSample, 
-      {                        
-        font: font,        
+    const text = new THREE.Mesh(
+      new THREE.TextGeometry(textSample,
+      {
+        font: font,
         size: 3, //Size of the text. Default is 100.
-        height: 1, 
-      }),    
+        height: 1,
+      }),
     );
 
-    scene.add(text);  
-    material = new THREE.MeshBasicMaterial()  
+    scene.add(text);
+    material = new THREE.MeshBasicMaterial()
     text.material.color.setHex(0xffffff)
-    
+
     text.position.x = -20;
     text.position.z = -100;
     text.position.y = -5;
-    
-  
+
+
     // Main loop
-    const render = () => {            
+    const render = () => {
       // Render scene!
       renderer.render(scene, camera);
 
       // End and schedule another frame
       gl.endFrameEXP();
       requestAnimationFrame(render);
-    };        
+    };
     render();
   };
 }
