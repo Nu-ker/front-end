@@ -8,5 +8,6 @@ var app = initializeApp({
     storageBucket: "nu-ker-fox.appspot.com",
     messagingSenderId: "174374570388"
 })
-
+export const fire = app
 export const db = app.database()
+export const storage = app.storage().ref()

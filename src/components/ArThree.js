@@ -1,29 +1,103 @@
 console.disableYellowBox = true
 import React from 'react';
-import { findNodeHandle, NativeModules, Platform, View } from 'react-native';
+import { findNodeHandle, NativeModules, Platform, View, AsyncStorage, Button } from 'react-native';
 import ExpoTHREE from 'expo-three';
 import * as THREE from 'three';
-
+import {Icon } from 'react-native-elements'
+import { NavigationActions } from "react-navigation";
+import axios from 'axios'
+import { Ionicons } from '@expo/vector-icons';
+const resetAction = NavigationActions.reset({
+  index: 0,
+  actions: [
+      NavigationActions.navigate({routeName: 'two'})
+  ]
+});
 export default class AR extends React.Component {
   constructor() {
     super()    
     this.state={
-      
+      uid:null
     }
-    
   }
-  static navigationOptions = {
-    title: 'Back',
-    tabBarLabel: 'AR',        
+
+  // static navigationOptions = ({ navigation }) => {
+  //   const { nutritions , base64 , uid } = navigation.state.params
+  //   const name = 'ADD'
+  //   return {
+  //     title: 'AR',
+  //     headerRight:
+  //       <Button
+  //         title={name}
+  //         onPress={ () => {
+  //           console.log('base',base64);
+  //   console.log('uid',uid);
+  //   console.log(nutritions);
+  //          axios.post('http://localhost:5000/nu-ker-fox/us-central1/Food',{
+  //             'name': nutritions['name'],
+  //             'calories': nutritions['calories'],
+  //             'total_fat': nutritions['total_fat'],
+  //             'saturated_fat': nutritions['saturated_fat'],
+  //             'cholesterol':nutritions['cholesterol'],
+  //             'total_carbohydrate': nutritions['total_carbohydrate'],
+  //             'sugars': nutritions['sugars'],
+  //             'protein': nutritions['protein'],
+  //             'photoUrl': base64
+  //           },{
+  //             headers:{
+  //               'uid':uid
+  //             }
+  //           })
+  //           .then(({data})=>{
+  //             navigation.navigate('two')
+  //             console.log(data);
+  //           })
+  //           .catch(err=>{
+  //             console.log('err',err);
+  //           })
+  //         }
+  //         }
+  //       />
+  //   }
+  // }
+  static navigationOptions = ({ navigation }) => {
+    const { uid, base64, nutritions } = navigation.state.params
+    console.log(nutritions);
+    const name = 'ADD'
+    return {
+      title: name,
+      headerRight:
+        <Button
+          title={name}
+          onPress={async () => {
+              const example = await axios.post('https://us-central1-nu-ker-fox.cloudfunctions.net/Food', {
+                'name': nutritions['name'],
+                'calories': Math.floor(nutritions['calories']),
+                'total_fat': Math.floor(nutritions['total_fat']),
+                'saturated_fat': Math.floor(nutritions['saturated_fa']),
+                'cholesterol': Math.floor(nutritions['cholesterol']),
+                'total_carbohydrate': Math.floor(nutritions['total_carbohydrate']),
+                'sugars': Math.floor(nutritions['sugars']),
+                'protein': Math.floor(nutritions['protein']),
+                'photoUrl': base64
+              }, {
+                  headers: {
+                    uid: uid
+                  }
+                })
+            return navigation.navigate('two')
+          }
+          }
+        />
+    }
   }
-  
   render() {
-    return (      
+    return (    
       <Expo.GLView
         nativeRef_EXPERIMENTAL={this._setNativeGLView}
         style={{ flex: 1 }}
         onContextCreate={this._onGLContextCreate}        
-      />      
+      />
     )
   };
 
