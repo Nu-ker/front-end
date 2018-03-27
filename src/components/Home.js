@@ -14,11 +14,18 @@ import * as Animatable from 'react-native-animatable';
 import { Ionicons } from '@expo/vector-icons';
 import axios from 'axios'
 import Expo from "expo"
+import {
+  bindActionCreators
+} from 'redux'
+import {
+  connect
+} from "react-redux";
 import LoadingPage from './LoadingPage'
+import { setInitAuth } from '../store/actions/auth'
 const androidClientId = "174374570388-iv0u513o3haajik2k3414emc6jquo2at.apps.googleusercontent.com"
 const iosClientId= "174374570388-3dvqr4m4n0qau2bh5oamm4bok894qttf.apps.googleusercontent.com"
 
-export default class Home extends React.Component {
+class Home extends React.Component {
   constructor(props) {
     super(props)
     this.state={
@@ -45,7 +52,7 @@ export default class Home extends React.Component {
         })
         if(user.data.status){
           AsyncStorage.setItem('uid', result.user.id)
-          this.props.navigation.navigate('DashBoard')
+          this.props.setInitAuth()
         }else{
           this.props.navigation.navigate('Form',{
             dataLogin:result.user
@@ -150,3 +157,13 @@ const styles = StyleSheet.create({
     padding: 5
   }
 })
+const mapDispacthToProps = (dispatch) => (
+  bindActionCreators({
+    setInitAuth
+  }, dispatch)
+)
+
+export default connect(
+  null,
+  mapDispacthToProps
+)(Home)

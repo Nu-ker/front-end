@@ -65,7 +65,7 @@ export default class AR extends React.Component {
     console.log(nutritions);
     const name = 'Add +'
     return {
-      title: name,
+      title: 'AR Pick',
       headerRight:
         <Button
           title={name}

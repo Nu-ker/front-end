@@ -14,11 +14,19 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.sample.sample"
+      "bundleIdentifier": "com.sample.sample",
     },
     "android": {
       "package": "com.sample.sample",
-      "permissions":[ "CAMERA" ]
+      "permissions":[ "CAMERA", "ACCESS_FINE_LOCATION" ],
+      "config":{
+        "googleSignIn":{
+          "apiKey": "174374570388-iv0u513o3haajik2k3414emc6jquo2at.apps.googleusercontent.com"
+        }
+      }
+    },
+    "packagerOpts": {
+      "nonPersistent": true
     }
   }
 }
