@@ -37,7 +37,7 @@ class One extends Component {
   componentWillMount = async ()=>{
     let self = this
     AsyncStorage.getItem('uid',(err,result)=>{
-      axios.get('https://us-central1-nu-ker-fox.cloudfunctions.net/DateCheck',{
+      const sample =axios.get('https://us-central1-nu-ker-fox.cloudfunctions.net/DateCheck',{
         headers: {
           uid: result,
           date: moment().format('MMMM-DD-YYYY')
@@ -72,7 +72,7 @@ class One extends Component {
     tabBarIcon: ({ tintColor }) =>
       <Icon name="home" size={30} color={tintColor}/>
   }
-  render() {
+  render () {
     const { loading , error , data } = this.props.stateNucare
     const { navigate } = this.props.navigation;
 
@@ -81,6 +81,7 @@ class One extends Component {
     }else if(error){
       return <ErrorPage error={error}/>
     }else{
+      if(data.dates[this.state.tanggal]){
     return (
       <View style={styles.container}>
         <View style={styles.one}>
@@ -112,7 +113,7 @@ class One extends Component {
             <View style={styles.wrapperIn}>
               <Animatable.Text animation="pulse" easing="ease-out" iterationCount="infinite" style={{ textAlign: 'center' }}>
               <Text style={styles.calory}>
-                {data.dates[this.state.tanggal].calories}
+                {(data.dates[this.state.tanggal])?(data.dates[this.state.tanggal]).calories:''}
               </Text>
               </Animatable.Text>
               <Text style={styles.caloryRemaining}>Calories Remaining</Text>
@@ -135,7 +136,7 @@ class One extends Component {
               })}>
                 <Animatable.View animation="bounceIn">
                   <View>
-                    <ImageBackground style={styles.pic} source={{uri : key[1].photoUrl}}>
+                    <ImageBackground style={styles.pic} source={{uri : `data:image/jpg;base64,${key[1].photoUrl}`}}>
                       <Text style={styles.textImage}>{key[1].calories} Kcal</Text>
                     </ImageBackground>
                   </View>
@@ -147,6 +148,9 @@ class One extends Component {
         </ScrollView>
       </View>
     )
+  }else{
+    return <LoadingPage/>
+  }
   }
   }
 }
@@ -260,6 +264,7 @@ const styles = StyleSheet.create({
 })
 const mapStateToProps = (state, props) => ({
   stateNucare: state.Nucare,
+  stateAuth: state.Auth
 })
 const mapDispacthToProps = (dispatch) => (
   bindActionCreators({

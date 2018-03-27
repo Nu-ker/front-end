@@ -7,19 +7,22 @@ import {
   TouchableOpacity,
   Image,
   ActivityIndicator,
+  AsyncStorage,
   ImageBackground
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
 import Camera from '../components/camera'
-
+import { storage } from "../firebase";
 export default class Two extends Component {
   constructor() {
     super()
     this.state={
-      loading:false
+      loading:false,
+      uid:null
     }
   }
+
   static navigationOptions = {
     title: 'Back',
     header: null,
@@ -33,6 +36,20 @@ export default class Two extends Component {
 
     tabBarIcon: ({ tintColor }) =>
       <Icon name="camera-alt" size={30} color={tintColor} />
+  }
+
+  componentWillMount(){
+    let self = this
+    AsyncStorage.getItem('uid',(err,result)=>{
+      if(err){
+        console.log('err=>>',err);
+      }else{
+        self.setState({
+          ...self.state,
+          uid:result
+        })
+      }
+    })
   }
   render() {
     const { navigate } = this.props.navigation;
@@ -62,16 +79,16 @@ export default class Two extends Component {
       base64
     } = await Expo.ImagePicker.launchCameraAsync({
       base64: true,
-      quality : 0.1,
+      quality : 0.3,
       allowsEditing: true,
       aspect: [4, 3],
     });
     if(!cancelled){
       this.setState({
+        ...this.state,
         loading:true
       })
     }
-    console.log(base64);
     const body = {
       requests:[
         {
@@ -99,11 +116,14 @@ export default class Two extends Component {
     const parsed = await response.json();
     const data = parsed.responses[0].labelAnnotations
     this.setState({
+      ...this.state,
       loading:false
     })
     this.props.navigation.navigate('ListLabel',{
       lists : data,
-      base64 : base64
+      base64 : base64,
+      uid: this.state.uid,
+      uri:uri
     })
   }
 }

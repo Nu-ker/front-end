@@ -59,7 +59,7 @@ export default class Detail extends Component {
       <View style={styles.container}>
 
         <View style={styles.food}>
-          <ImageBackground style={{width: '100%', height: '100%'}} source={{uri : food[1].photoUrl}}>
+          <ImageBackground style={{width: '100%', height: '100%'}} source={{uri : `data:image/jpg;base64,${food[1].photoUrl}`}}>
           </ImageBackground>
         </View>
 
