@@ -123,8 +123,10 @@ const styles = StyleSheet.create({
   circle: {
     margin: 12,
     alignSelf: 'center',
-    width: '40%',
-    height: '85%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 150,
+    height: 150,
     backgroundColor: 'lightblue',
     borderWidth: 1,
     borderColor: 'white'

@@ -57,7 +57,7 @@ export default class App extends React.Component {
     const {
       cancelled,
       uri,
-      base64      
+      base64
     } = await Expo.ImagePicker.launchCameraAsync({
       base64: true,
       quality : 0.1,
@@ -98,8 +98,8 @@ export default class App extends React.Component {
     const parsed = await response.json();
     const data = parsed.responses[0].labelAnnotations
     let arrayOfFood = []
-    for( let i in data ){      
-      arrayOfFood.push(data[i].description)      
+    for( let i in data ){
+      arrayOfFood.push(data[i].description)
     }
 
     console.log('tessss',arrayOfFood)
