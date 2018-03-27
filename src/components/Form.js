@@ -103,7 +103,7 @@ export default class Home extends React.Component {
             transparent={true}
             indicator="down"
             indicatorColor="white"
-            optionListStyle = {{backgroundColor : "rgba(0, 0, 0, 0.8)", height: 80}}
+            optionListStyle = {{width: '90%', backgroundColor : "rgba(0, 0, 0, 0.8)", height: 80}}
           >
             <Option styleText={{color: 'white'}} value={"Male"}>Male</Option>
             <Option styleText={{color: 'white'}} value={"Female"}>Female</Option>
@@ -118,7 +118,7 @@ export default class Home extends React.Component {
             transparent={true}
             indicator="down"
             indicatorColor="white"
-            optionListStyle = {{backgroundColor : "rgba(0, 0, 0, 0.8)", height: 200}}
+            optionListStyle = {{width: '90%', backgroundColor : "rgba(0, 0, 0, 0.8)", height: 200}}
           >
             <Option styleText={{color: 'white'}} value={"1.2"}>Sedentary</Option>
             <Option styleText={{color: 'white'}} value={"1.375"}>Lightly</Option>
