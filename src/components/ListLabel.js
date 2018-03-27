@@ -29,6 +29,13 @@ export default class listLabel extends Component {
     })
   }
 
+  static navigationOptions = {
+    title: 'Preferences',
+    tabBarLabel: 'Camera',
+    tabBarIcon: ({ tintColor }) =>
+    <Icon name="camera-alt" size={30} color={tintColor}/>
+  }
+
   _keyExtractor = (item, index) => item.name
 
   setModalVisible(item) {
@@ -68,7 +75,7 @@ export default class listLabel extends Component {
     const { lists } = this.props.navigation.state.params
     return (
       <View style={styles.container}>
-        <Text style={{ textAlign: 'center', fontWeight: 'bold', fontSize: 25, marginTop: 10 }}>Choose Your Food</Text>
+        <Text style={{textAlign: 'center', fontWeight: 'bold', fontSize: 25, marginTop: 8, borderBottomColor: 'grey', borderBottomWidth: 1}}>Choose Your Preference</Text>
         <FlatList
           style={{ width: '100%' }}
           keyExtractor={this._keyExtractor}

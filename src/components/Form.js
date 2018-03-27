@@ -95,6 +95,7 @@ export default class Home extends React.Component {
           value={this.state.height}/>
 
           <Select
+            animationType="slide"
             onSelect = {this.onSelectGender.bind(this)}
             defaultText={this.state.value}
             textStyle={{color: 'white'}}
@@ -109,6 +110,7 @@ export default class Home extends React.Component {
           </Select>
 
           <Select
+            animationType="slide"
             onSelect = {this.onSelectActivity.bind(this)}
             defaultText={this.state.valueActivity}
             textStyle={{color: 'white'}}

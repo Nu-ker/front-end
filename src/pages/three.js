@@ -32,7 +32,7 @@ class Three extends Component {
         </ImageBackground>
 
         <View style={styles.profileDetail}>
-          <ScrollView>
+          <ScrollView style={{backgroundColor: 'white', margin: 5}}>
           <View style={styles.bio}>
             <Text style={styles.desc}>
               Name :
@@ -117,7 +117,8 @@ const styles = StyleSheet.create({
   profileDetail: {
     flex: 1,
     width: '100%',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    backgroundColor: '#c9c9c9'
   },
   circle: {
     margin: 12,
@@ -133,7 +134,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    width: '100%',
     maxHeight: 50,
     width: '90%',
     alignSelf: 'center',

@@ -124,6 +124,7 @@ export default class EditProfile extends Component {
           value={this.state.height}/>
 
           <Select
+            animationType="slide"
             onSelect = {this.onSelectGender.bind(this)}
             defaultText={this.state.sex}
             textStyle={{color: 'black'}}
@@ -131,13 +132,14 @@ export default class EditProfile extends Component {
             transparent={true}
             indicator="down"
             indicatorColor="black"
-            optionListStyle = {{backgroundColor : "rgba(0, 0, 0, 0.8)", height: 80}}
+            optionListStyle = {{backgroundColor : "rgba(0, 0, 0, 0.8)", height: 80, width: '90%'}}
           >
             <Option styleText={{color: 'white'}} value={"Male"}>Male</Option>
             <Option styleText={{color: 'white'}} value={"Female"}>Female</Option>
           </Select>
 
           <Select
+            animationType="slide"
             onSelect = {this.onSelectActivity.bind(this)}
             defaultText={this.state.valueActivity}
             textStyle={{color: 'black'}}
@@ -145,7 +147,7 @@ export default class EditProfile extends Component {
             transparent={true}
             indicator="down"
             indicatorColor="black"
-            optionListStyle = {{backgroundColor : "rgba(0, 0, 0, 0.8)", height: 200}}
+            optionListStyle = {{backgroundColor : "rgba(0, 0, 0, 0.8)", height: 200, width: '90%'}}
           >
             <Option styleText={{color: 'white'}} value={"1.2"}>Sedentary</Option>
             <Option styleText={{color: 'white'}} value={"1.375"}>Lightly</Option>
