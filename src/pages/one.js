@@ -43,9 +43,6 @@ class One extends Component {
           date: moment().format('MMMM-DD-YYYY')
         }
       })
-      if(!self.props.stateNucare.data){
-        self.props.setInitAuth()
-      }
     })
   }
 

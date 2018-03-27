@@ -11,11 +11,18 @@ import {
   AsyncStorage,
   Picker
 } from 'react-native';
+import {
+  bindActionCreators
+} from 'redux'
+import {
+  connect
+} from "react-redux";
+import { setInitAuth } from '../store/actions/auth'
 import * as Animatable from 'react-native-animatable';
 import axios from 'axios';
 import {Select, Option} from "react-native-chooser";
 
-export default class Home extends React.Component {
+class Home extends React.Component {
   constructor() {
     super()
     this.state={
@@ -50,7 +57,7 @@ export default class Home extends React.Component {
     })
     if(user.data.msg === "SUCCESS POST"){
       AsyncStorage.setItem('uid', this.props.navigation.state.params.dataLogin.id)
-      this.props.navigation.navigate('DashBoard')
+      this.props.setInitAuth()
     }
   }
 
@@ -95,6 +102,7 @@ export default class Home extends React.Component {
           value={this.state.height}/>
 
           <Select
+          animationType="slide"
             onSelect = {this.onSelectGender.bind(this)}
             defaultText={this.state.value}
             textStyle={{color: 'white'}}
@@ -102,13 +110,14 @@ export default class Home extends React.Component {
             transparent={true}
             indicator="down"
             indicatorColor="white"
-            optionListStyle = {{backgroundColor : "rgba(0, 0, 0, 0.8)", height: 80}}
+            optionListStyle = {{backgroundColor : "rgba(0, 0, 0, 0.8)", height: 80, width: '90%'}}
           >
             <Option styleText={{color: 'white'}} value={"Male"}>Male</Option>
             <Option styleText={{color: 'white'}} value={"Female"}>Female</Option>
           </Select>
 
           <Select
+          animationType="slide"
             onSelect = {this.onSelectActivity.bind(this)}
             defaultText={this.state.valueActivity}
             textStyle={{color: 'white'}}
@@ -116,7 +125,7 @@ export default class Home extends React.Component {
             transparent={true}
             indicator="down"
             indicatorColor="white"
-            optionListStyle = {{backgroundColor : "rgba(0, 0, 0, 0.8)", height: 200}}
+            optionListStyle = {{backgroundColor : "rgba(0, 0, 0, 0.8)", height: 200, width: '90%'}}
           >
             <Option styleText={{color: 'white'}} value={"1.2"}>Sedentary</Option>
             <Option styleText={{color: 'white'}} value={"1.375"}>Lightly</Option>
@@ -124,13 +133,6 @@ export default class Home extends React.Component {
             <Option styleText={{color: 'white'}} value={"1.725"}>Very Active</Option>
             <Option styleText={{color: 'white'}} value={"1.9"}>Extreme</Option>
           </Select>
-
-          <TextInput placeholderTextColor="#d8e7ff" placeholder="Weight Target" keyboardType="phone-pad" style={styles.input}
-          onChangeText={(weightTarget) => this.setState({
-            ...this.state,
-            weightTarget
-          })}
-          value={this.state.weightTarget}/>
 
           <TouchableHighlight onPress={() => this.handleSubmit()} style={styles.next}>
             <Text style={styles.text}>NEXT</Text>
@@ -181,3 +183,13 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   }
 })
+const mapDispacthToProps = (dispatch) => (
+  bindActionCreators({
+    setInitAuth
+  }, dispatch)
+)
+
+export default connect(
+  null,
+  mapDispacthToProps
+)(Home)
