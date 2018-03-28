@@ -1,14 +1,14 @@
 import React from 'react';
-import { 
-  StyleSheet, 
-  Text, 
-  ImageBackground, 
-  TouchableHighlight, 
-  View, 
-  Image, 
-  TextInput, 
-  ActivityIndicator, 
-  AsyncStorage 
+import {
+  StyleSheet,
+  Text,
+  ImageBackground,
+  TouchableHighlight,
+  View,
+  Image,
+  TextInput,
+  ActivityIndicator,
+  AsyncStorage
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { Ionicons } from '@expo/vector-icons';
@@ -20,17 +20,17 @@ export default  class Loading extends React.Component {
   }
   render () {
       return (
-        <ImageBackground style={styles.back} source={require('../assets/tes.jpg')}>
+        <ImageBackground style={styles.back} source={require('../assets/food2.jpg')}>
           <View>
             <Image style={styles.logo} source={require('../assets/logo.png')}></Image>
             <Text style={styles.figure}>
               An App For Your Health
             </Text>
           </View>
-          <View style={styles.container}> 
-          <ActivityIndicator size="large" color="#424242" />    
+          <View style={styles.container}>
+          <ActivityIndicator size="large" color="#424242" />
           </View>
-  
+
           <Text style={styles.textIcon}>
             <Ionicons name="logo-facebook" size={25} color="white" />
             &nbsp;
