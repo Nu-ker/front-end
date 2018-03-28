@@ -79,7 +79,7 @@ class Home extends React.Component {
 
   render () {
     return (
-      <ImageBackground style={styles.back} source={require('../assets/tes.jpg')}>
+      <ImageBackground style={styles.back} source={require('../assets/food2.jpg')}>
         <Text style={styles.judul}>Please Fill The Form</Text>
         <ScrollView style={styles.wrap}>
           <TextInput placeholderTextColor="#d8e7ff" placeholder="Your age" keyboardType="phone-pad" style={styles.input}
@@ -106,7 +106,7 @@ class Home extends React.Component {
             onSelect = {this.onSelectGender.bind(this)}
             defaultText={this.state.value}
             textStyle={{color: 'white'}}
-            style = {{margin: 8, padding: 10, width: '90%', alignSelf: 'center', borderBottomWidth: 1}}
+            style = {{margin: 8, borderColor: 'white', padding: 10, width: '90%', alignSelf: 'center', borderBottomWidth: 1}}
             transparent={true}
             indicator="down"
             indicatorColor="white"
@@ -121,7 +121,7 @@ class Home extends React.Component {
             onSelect = {this.onSelectActivity.bind(this)}
             defaultText={this.state.valueActivity}
             textStyle={{color: 'white'}}
-            style = {{margin: 8, padding: 10, width: '90%', alignSelf: 'center', borderBottomWidth: 1}}
+            style = {{margin: 8, borderColor: 'white', padding: 10, width: '90%', alignSelf: 'center', borderBottomWidth: 1}}
             transparent={true}
             indicator="down"
             indicatorColor="white"
@@ -151,6 +151,7 @@ const styles = StyleSheet.create({
   input: {
     alignSelf: 'center',
     borderBottomWidth: 1,
+    borderBottomColor: 'white',
     width: '90%',
     height: 40,
     margin: 8,
@@ -159,7 +160,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   wrap: {
-    width: '100%',
+    maxHeight: 350,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    margin: 15,
+    alignSelf: 'center',
+    width: '95%',
     height: '100%'
   },
   judul: {

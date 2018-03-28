@@ -79,7 +79,7 @@ class Home extends React.Component {
       return <LoadingPage/>
     }else{
       return (
-        <ImageBackground style={styles.back} source={require('../assets/tes.jpg')}>
+        <ImageBackground style={styles.back} source={require('../assets/food2.jpg')}>
           <View>
             <Image style={styles.logo} source={require('../assets/logo.png')}></Image>
             <Text style={styles.figure}>
@@ -114,7 +114,8 @@ const styles = StyleSheet.create({
   back: {
     justifyContent: 'center',
     width: '100%',
-    height: '100%'
+    height: '100%',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)'
   },
   container: {
     flex: 1,

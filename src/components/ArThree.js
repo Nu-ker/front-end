@@ -21,45 +21,6 @@ export default class AR extends React.Component {
     }
   }
 
-  // static navigationOptions = ({ navigation }) => {
-  //   const { nutritions , base64 , uid } = navigation.state.params
-  //   const name = 'ADD'
-  //   return {
-  //     title: 'AR',
-  //     headerRight:
-  //       <Button
-  //         title={name}
-  //         onPress={ () => {
-  //           console.log('base',base64);
-  //   console.log('uid',uid);
-  //   console.log(nutritions);
-  //          axios.post('http://localhost:5000/nu-ker-fox/us-central1/Food',{
-  //             'name': nutritions['name'],
-  //             'calories': nutritions['calories'],
-  //             'total_fat': nutritions['total_fat'],
-  //             'saturated_fat': nutritions['saturated_fat'],
-  //             'cholesterol':nutritions['cholesterol'],
-  //             'total_carbohydrate': nutritions['total_carbohydrate'],
-  //             'sugars': nutritions['sugars'],
-  //             'protein': nutritions['protein'],
-  //             'photoUrl': base64
-  //           },{
-  //             headers:{
-  //               'uid':uid
-  //             }
-  //           })
-  //           .then(({data})=>{
-  //             navigation.navigate('two')
-  //             console.log(data);
-  //           })
-  //           .catch(err=>{
-  //             console.log('err',err);
-  //           })
-  //         }
-  //         }
-  //       />
-  //   }
-  // }
   static navigationOptions = ({ navigation }) => {
     const { uid, base64, nutritions } = navigation.state.params
     console.log(nutritions);

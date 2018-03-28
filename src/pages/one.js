@@ -25,8 +25,10 @@ import * as Animatable from 'react-native-animatable';
 import { db } from '../firebase'
 import { setInitAuth } from '../store/actions/auth'
 import axios from 'axios'
+import ProgressCircle from 'react-native-progress-circle'
 import LoadingPage from '../components/LoadingPage'
 import ErrorPage from '../components/ErrorPage'
+
 class One extends Component {
   constructor () {
     super()
@@ -106,16 +108,17 @@ class One extends Component {
         </View>
 
         <View style={styles.two}>
-          <View style={styles.wrapper}>
-            <View style={styles.wrapperIn}>
-              <Animatable.Text animation="pulse" easing="ease-out" iterationCount="infinite" style={{ textAlign: 'center' }}>
-              <Text style={styles.calory}>
-                {(data.dates[this.state.tanggal])?(data.dates[this.state.tanggal]).calories:''}
-              </Text>
-              </Animatable.Text>
-              <Text style={styles.caloryRemaining}>Calories Remaining</Text>
-            </View>
-          </View>
+          <ProgressCircle
+              percent={(data.dates[this.state.tanggal])?((Number(data.dates[this.state.tanggal].calories)/Number(data.calories))*100):''}
+              radius={100}
+              borderWidth={10}
+              color="#3399FF"
+              shadowColor="white"
+              bgColor="lightblue"
+          >
+          <Text style={styles.calory}>{(data.dates[this.state.tanggal])?(data.dates[this.state.tanggal]).calories:''}</Text>
+          <Text style={styles.caloryRemaining}>Calory Remaining</Text>
+        </ProgressCircle>
         </View>
 
         <ScrollView style={{backgroundColor: 'white', margin: 7, width: '97%'}}>
@@ -179,6 +182,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 5,
     borderBottomColor: 'white',
     flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
     flexWrap: 'wrap',
     flexDirection: 'row',
     justifyContent: 'center',
