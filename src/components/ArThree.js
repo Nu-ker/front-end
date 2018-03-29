@@ -20,7 +20,6 @@ export default class AR extends React.Component {
       uid:null
     }
   }
-
   static navigationOptions = ({ navigation }) => {
     const { uid, base64, nutritions } = navigation.state.params
     console.log(nutritions);
@@ -46,7 +45,7 @@ export default class AR extends React.Component {
                     uid: uid
                   }
                 })
-            return navigation.navigate('one')
+            return navigation.navigate('two')
           }
           }
         />

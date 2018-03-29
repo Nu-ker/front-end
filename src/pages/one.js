@@ -30,16 +30,16 @@ import LoadingPage from '../components/LoadingPage'
 import ErrorPage from '../components/ErrorPage'
 
 class One extends Component {
-  constructor () {
+  constructor() {
     super()
     this.state = {
       tanggal: moment().format('MMMM-DD-YYYY')
     }
   }
-  componentWillMount = async ()=>{
+  componentWillMount = async () => {
     let self = this
-    AsyncStorage.getItem('uid',(err,result)=>{
-      const sample =axios.get('https://us-central1-nu-ker-fox.cloudfunctions.net/DateCheck',{
+    AsyncStorage.getItem('uid', (err, result) => {
+      const sample = axios.get('https://us-central1-nu-ker-fox.cloudfunctions.net/DateCheck', {
         headers: {
           uid: result,
           date: moment().format('MMMM-DD-YYYY')
@@ -48,7 +48,7 @@ class One extends Component {
     })
   }
 
-  back () {
+  back() {
     const dataBack = new Date(this.state.tanggal).getTime() - 86400000;
     const fixDataBack = moment(dataBack).format('MMMM-DD-YYYY')
     this.setState({
@@ -56,7 +56,7 @@ class One extends Component {
     })
   }
 
-  forward () {
+  forward() {
     const dataForward = new Date(this.state.tanggal).getTime() + 86400000;
     const fixDataForward = moment(dataForward).format('MMMM-DD-YYYY')
     this.setState({
@@ -69,89 +69,93 @@ class One extends Component {
     tabBarLabel: 'Dashboard',
     header: null,
     tabBarIcon: ({ tintColor }) =>
-      <Icon name="home" size={30} color={tintColor}/>
+      <Icon name="home" size={30} color={tintColor} />
   }
-  render () {
-    const { loading , error , data } = this.props.stateNucare
+  render() {
+    const { loading, error, data } = this.props.stateNucare
     const { navigate } = this.props.navigation;
 
-    if(!data){
-      return <LoadingPage/>
-    }else if(error){
-      return <ErrorPage error={error}/>
-    }else{
-      if(data.dates[this.state.tanggal]){
-    return (
-      <View style={styles.container}>
-        <View style={styles.one}>
-          <View style={styles.left}>
-            <TouchableOpacity
-            disabled={Object.keys(data.dates)[0] === this.state.tanggal}
-            onPress={() => this.back()}>
-              <Ionicons style={{textAlign: 'right'}} name="ios-arrow-back-outline" color="white" size={40}></Ionicons>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.date}>
-              <Text style={{fontWeight: 'bold', color: 'white', textAlign: 'center', fontSize: 18, marginTop: 8}}>
-                <Animatable.Text animation="flipInX">
-                  {this.state.tanggal}
-                </Animatable.Text>
-              </Text>
-          </View>
-          <View style={styles.right}>
-            <TouchableOpacity
-            disabled={moment().format('MMMM-DD-YYYY') === this.state.tanggal}
-            onPress={() => this.forward()}>
-              <Ionicons style={{textAlign: 'left'}} name="ios-arrow-forward-outline" color="white" size={40}></Ionicons>
-            </TouchableOpacity>
-          </View>
-        </View>
+    if (!data) {
+      return <LoadingPage />
+    } else if (error) {
+      return <ErrorPage error={error} />
+    } else {
+      if (data.dates) {
+        if (!data.dates[this.state.tanggal]) {
+          return <LoadingPage />
+        } else {
+          return (
+            <View style={styles.container}>
+              <View style={styles.one}>
+                <View style={styles.left}>
+                  <TouchableOpacity
+                    disabled={Object.keys(data.dates)[0] === this.state.tanggal}
+                    onPress={() => this.back()}>
+                    <Ionicons style={{ textAlign: 'right' }} name="ios-arrow-back-outline" color="white" size={40}></Ionicons>
+                  </TouchableOpacity>
+                </View>
+                <View style={styles.date}>
+                  <Text style={{ fontWeight: 'bold', color: 'white', textAlign: 'center', fontSize: 18, marginTop: 8 }}>
+                    <Animatable.Text animation="flipInX">
+                      {this.state.tanggal}
+                    </Animatable.Text>
+                  </Text>
+                </View>
+                <View style={styles.right}>
+                  <TouchableOpacity
+                    disabled={moment().format('MMMM-DD-YYYY') === this.state.tanggal}
+                    onPress={() => this.forward()}>
+                    <Ionicons style={{ textAlign: 'left' }} name="ios-arrow-forward-outline" color="white" size={40}></Ionicons>
+                  </TouchableOpacity>
+                </View>
+              </View>
 
-        <View style={styles.two}>
-          <ProgressCircle
-              percent={(data.dates[this.state.tanggal])?((Number(data.dates[this.state.tanggal].calories)/Number(data.calories))*100):''}
-              radius={100}
-              borderWidth={10}
-              color="#3399FF"
-              shadowColor="white"
-              bgColor="lightblue"
-          >
-          <Text style={styles.calory}>{(data.dates[this.state.tanggal])?(data.dates[this.state.tanggal]).calories:''}</Text>
-          <Text style={styles.caloryRemaining}>Calory Remaining</Text>
-        </ProgressCircle>
-        </View>
+              <View style={styles.two}>
+                <ProgressCircle
+                  percent={(data.dates[this.state.tanggal]) ? ((Number(data.dates[this.state.tanggal].calories) / Number(data.calories)) * 100) : ''}
+                  radius={100}
+                  borderWidth={10}
+                  color="#3399FF"
+                  shadowColor="white"
+                  bgColor="lightblue"
+                >
+                  <Text style={styles.calory}>{(data.dates[this.state.tanggal]) ? (data.dates[this.state.tanggal]).calories : ''}</Text>
+                  <Text style={styles.caloryRemaining}>Calory Remaining</Text>
+                </ProgressCircle>
+              </View>
 
-        <ScrollView style={{backgroundColor: 'white', margin: 7, width: '97%'}}>
-          <Text style={styles.today}>Today's Consumption</Text>
-          <View style={styles.three}>
-          {
-            data.dates[this.state.tanggal].foods?
-            Object.entries(data.dates[this.state.tanggal].foods).map((key,i)=>(
-              <TouchableOpacity
-              key={i}
-              style={{width: '33%', padding: 5}}
-              onPress={() => navigate('detail',{
-                food: key,
-                date: this.state.tanggal
-              })}>
-                <Animatable.View animation="bounceIn">
-                  <View>
-                    <ImageBackground style={styles.pic} source={{uri : `data:image/jpg;base64,${key[1].photoUrl}`}}>
-                      <Text style={styles.textImage}>{key[1].calories} Kcal</Text>
-                    </ImageBackground>
-                  </View>
-                </Animatable.View>
-              </TouchableOpacity>
-            )):<Text></Text>
-          }
-          </View>
-        </ScrollView>
-      </View>
-    )
-  }else{
-    return <LoadingPage/>
-  }
-  }
+              <ScrollView style={{ backgroundColor: 'white', margin: 7, width: '97%' }}>
+                <Text style={styles.today}>Today's Consumption</Text>
+                <View style={styles.three}>
+                  {
+                    data.dates[this.state.tanggal].foods ?
+                      Object.entries(data.dates[this.state.tanggal].foods).map((key, i) => (
+                        <TouchableOpacity
+                          key={i}
+                          style={{ width: '33%', padding: 5 }}
+                          onPress={() => navigate('detail', {
+                            food: key,
+                            date: this.state.tanggal
+                          })}>
+                          <Animatable.View animation="bounceIn">
+                            <View>
+                              <ImageBackground style={styles.pic} source={{ uri: `data:image/jpg;base64,${key[1].photoUrl}` }}>
+                                <Text style={styles.textImage}>{key[1].calories} Kcal</Text>
+                              </ImageBackground>
+                            </View>
+                          </Animatable.View>
+                        </TouchableOpacity>
+                      )) : <Text></Text>
+                  }
+                </View>
+              </ScrollView>
+            </View>
+          )
+        }
+      } else {
+        return <LoadingPage />
+      }
+    }
   }
 }
 
@@ -217,7 +221,7 @@ const styles = StyleSheet.create({
     height: 200,
     backgroundColor: 'white',
     justifyContent: 'center',
-    borderRadius: 200/2,
+    borderRadius: 200 / 2,
     alignSelf: 'center'
   },
   wrapperIn: {

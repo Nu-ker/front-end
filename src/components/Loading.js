@@ -20,7 +20,7 @@ import DashBoard from './DashBoard'
 import ListLabel from './ListLabel'
 import LoadingPage from './LoadingPage'
 import ErrorPage from './ErrorPage'
-import AR from './ArThree'
+import AR from './ARsample'
 import { StackNavigator } from 'react-navigation'
 import {
     bindActionCreators
